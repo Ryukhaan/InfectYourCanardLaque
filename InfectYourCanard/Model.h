@@ -11,20 +11,25 @@
 
 #include <vector>
 #include "Food.h"
-#include "Canard.h"
+#include "Wheat.h"
+#include "Vitamin.h"
+#include "DGrid.hpp"
 #include "Map.h"
 #include "Common.h"
+#include "LMouse.hpp"
 //#include <SDL2/SDL.h>
 //#include <SDL2_image/SDL_image.h>
 
 class Model {
 private:
     std::vector<Canard *> _ducks;
+    DGrid _duck;
     int _numberOfDucks;
     Map* _map;
-    std::vector<Food *> _foods;
+    std::vector<int> _foods;
     std::vector<SDL_Rect> _obstacles;
     int _score;
+    float _timer;
     LTexture* DeadTexture;
     LTexture* FattyTexture;
     LTexture* HealthyTexture;
@@ -41,7 +46,9 @@ public:
     
     void initialiseDucks();
     void initialiseObstacles();
-    void update(SDL_Renderer* render, int turnTime, SDL_Rect mouseRect);
+    void initialiseFood();
+    
+    void update(SDL_Renderer* render, int turnTime, LMouse* mouse);
     void render(SDL_Renderer* render, int turn);
     
     static bool sortByState (Canard* c1, Canard* c2) {
@@ -94,12 +101,25 @@ public:
         _ducks.push_back(canard);
     }
     
-    void pushFood(Food *food) {
-        _foods.push_back(food);
+    void increaseFood(int index) {
+        if (index < _foods.size())
+            _foods[index] ++;
     }
     
     long sizeFood() {
         return _foods.size();
+    }
+    
+    bool moreThanOneFood(int index) {
+        return _foods[index] >= 1;
+    }
+    
+    bool moreThanOneFood(Status index) {
+        return _foods[(int)index] >= 1;
+    }
+    
+    int foodAt(Status index) {
+        return _foods[(int)index];
     }
     
     void eraseDuck(Canard *canard) {
@@ -113,13 +133,21 @@ public:
     int getScore() {
         return _score;
     }
-    
-    void eraseFood(Food *food) {
-        _foods.erase(std::remove(_foods.begin(), _foods.end(), food), _foods.end());
+        
+    void generativeMap(int i) {
+        i == 0 ? _map->generativeMapField() : _map->generativeMapSnow();
     }
     
-    void generativeMap() {
-        _map->generativeMapField();
+    void setTimer(float timer) {
+        _timer = timer;
+    }
+    
+    float getTimer() {
+        return _timer;
+    }
+    
+    void updateTimer(float elapsed) {
+        _timer -= elapsed;
     }
     
 };

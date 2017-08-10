@@ -24,7 +24,7 @@
 #define NUMBER_HEIGHT_TILES 38
 #define NUMBER_WIDTH_TILES 50
 
-#define AREA_WIDTH 40
+#define AREA_WIDTH 50
 #define AREA_HEIGHT 30
 
 #define TILE_WIDTH 16
@@ -46,6 +46,9 @@
 
 const std::vector<int> impassable = {0, 1, 4, 5, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25, 27};
 
+/*int toIndex(int x, int y) {
+    return x * AREA_HEIGHT + y;
+}*/
 typedef enum {
     DOWN, LEFT, RIGHT, UP
 } Orientation ;

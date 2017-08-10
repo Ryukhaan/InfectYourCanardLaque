@@ -24,6 +24,7 @@ typedef enum {
 } State;
 
 class Canard {
+    friend class DGrid;
     
 private:
     //bool _initialized;
@@ -38,7 +39,8 @@ private:
     int _stress;
     SDL_Rect _collider;
     LTexture* _texture;
-    
+    Canard* _next;
+    Canard* _prev;
     
 public:
     // Constructor and Deconstrutor
@@ -110,7 +112,18 @@ public:
     void setTexture(LTexture* texture) {
         _texture = texture;
     }
-    
+    void setX(int x) {
+        _collider.x = x;
+    }
+    void setY(int y) {
+        _collider.y = y;
+    }
+    void setNext(Canard* next) {
+        _next = next;
+    }
+    void setPrev(Canard* prev) {
+        _prev = prev;
+    }
     // Getters
     float getWeight() {
         return _weight;
@@ -150,6 +163,13 @@ public:
     }
     Orientation getOrientation() {
         return _orientation;
+    }
+    
+    Canard* getNext() {
+        return _next;
+    }
+    Canard* getPrev() {
+        return _prev;
     }
 };
 

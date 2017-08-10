@@ -11,18 +11,7 @@
 Map::Map(int line, int column)
     : _timer(0)
 {
-    //_texture = *new LTexture();
-    //malloc(sizeof(LTexture));
-    initialise(line, column);
-}
-
-void Map::initialise(int line, int column) {
-    for (int i=0; i<line; i++) {
-        pushNewLine();
-        for (int j=0; j<column; j++) {
-            pushTile(i, 0);
-        }
-    }
+    initialiseGraph();
 }
 
 // Actions
@@ -30,13 +19,45 @@ SDL_Surface* Map::createFromSurface(const std::string path) {
     SDL_Surface *surface;
     SDL_Surface *image = IMG_Load( path.c_str() );
     surface = SDL_CreateRGBSurface(0, NUMBER_WIDTH_TILES*TILE_WIDTH, NUMBER_HEIGHT_TILES*TILE_HEIGHT, 32, 0, 0, 0, 0);
-    for (int i=0; i<_table.size(); i++) {
-        for (int j=0; j<_table[i].size(); j++) {
-            int positionX = (_table[i][j] % 10) * TILE_WIDTH;
-            int positionY = (_table[i][j] / 10) * TILE_HEIGHT;
+    int num_vertice = 0;
+    for (Vertice edge : _graph._edges) {
+        int currentIndice = edge.indice;
+        int i = num_vertice / AREA_HEIGHT;
+        int j = num_vertice % AREA_HEIGHT;
+        int positionX = (currentIndice % 10) * TILE_WIDTH;
+        int positionY = (currentIndice / 10) * TILE_HEIGHT;
+        SDL_Rect source = {positionX, positionY, TILE_WIDTH, TILE_HEIGHT};
+        int ecranX = i*TILE_WIDTH;
+        int ecranY = j*TILE_HEIGHT;
+        SDL_Rect destination = {ecranX, ecranY, TILE_WIDTH, TILE_HEIGHT};
+        SDL_BlitSurface(image, &source, surface, &destination);
+        num_vertice++;
+    }
+    for(int line=0; line<NUMBER_WIDTH_TILES; line++) {
+        for (int column=0; column<NUMBER_HEIGHT_TILES-AREA_HEIGHT; column++) {
+            int indice = 18;
+            // Top left
+            if (line==0 && column==0) indice = 10;
+            // Top right
+            else if (line==NUMBER_WIDTH_TILES-1 && column == 0) indice = 12;
+            // Bottom left
+            else if (line==0 && column == NUMBER_HEIGHT_TILES-AREA_HEIGHT-1) indice = 11;
+            // Bottom right
+            else if(line==NUMBER_WIDTH_TILES-1 && column == NUMBER_HEIGHT_TILES-AREA_HEIGHT-1) indice = 13;
+            // Left
+            else if (line == 0) indice = 17;
+            // Right
+            else if (line== NUMBER_WIDTH_TILES-1) indice = 15;
+            // Top
+            else if (column == 0) indice = 14;
+            // Bottom
+            else if (column==NUMBER_HEIGHT_TILES-AREA_HEIGHT-1) indice = 16;
+
+            int positionX = (indice % 10) * TILE_WIDTH;
+            int positionY = (indice / 10) * TILE_HEIGHT;
             SDL_Rect source = {positionX, positionY, TILE_WIDTH, TILE_HEIGHT};
-            int ecranX = i*TILE_WIDTH;
-            int ecranY = j*TILE_HEIGHT;
+            int ecranX = line*TILE_WIDTH;
+            int ecranY = (column+AREA_HEIGHT)*TILE_HEIGHT;
             SDL_Rect destination = {ecranX, ecranY, TILE_WIDTH, TILE_HEIGHT};
             SDL_BlitSurface(image, &source, surface, &destination);
         }
@@ -57,22 +78,14 @@ void Map::render(SDL_Renderer *gRenderer) {
     _texture.render(gRenderer, NULL, NULL, NULL);
 }
 
-void Map::pushNewLine() {
-    _table.push_back(std::vector<int>());
-}
-
-void Map::pushTile(int line, int value) {
-    _table[line].push_back(value);
-}
-
 void Map::generativeMapField() {
     // Create GRASS and TREES
-    for (int i=0; i<AREA_WIDTH; i++) {
-        for (int j=0; j<AREA_HEIGHT; j++) {
-            rand()%12 == 0 ? _table[i][j] = 1 : _table[i][j] = 3;
-        }
-    }
     
+    std::vector<int> table = _graph.convertGraphToTable();
+    for (int i=0 ; i< table.size(); i++) {
+        rand()%12 == 0 ? table[i] = 1 : table[i] = 3;
+    }
+
     // Creates RIVER path : LEFT -> RIGHT
     for(int num=0; num<2; num++) {
         //srand (time(NULL));
@@ -80,7 +93,8 @@ void Map::generativeMapField() {
         int y = rand() %(AREA_HEIGHT-16) + 8;
         Orientation forward = LEFT;
         while(x < AREA_WIDTH) {
-            _table[x][y] = 4;
+            int index = x * AREA_HEIGHT + y;
+            table[index] = 4;
             
             Orientation lastOrientation = forward;
             // If the last orientation wasn't right, then increase change for a right move
@@ -106,14 +120,17 @@ void Map::generativeMapField() {
             if (y > AREA_HEIGHT-1) y=AREA_HEIGHT-1;
         }
     }
+
     // Creates RIVER path : UP <-> DOWN
     Orientation forward = LEFT;
     int x = rand()%(AREA_WIDTH-20) + 10;
     int y = (rand()%2) * (AREA_HEIGHT-1);
     bool upToDown = (y==0);
     upToDown ? forward = UP : forward = DOWN;
-    while(_table[x][y] != 4) {
-        _table[x][y] = 4;
+
+    int index = x * AREA_HEIGHT + y;
+    while(table[index] != 4) {
+        table[index] = 4;
         Orientation lastOrientation = forward;
         if (lastOrientation == RIGHT) {
             int number = rand()%3;
@@ -140,48 +157,145 @@ void Map::generativeMapField() {
         }
         if (x < 0) x=0;
         if (x > AREA_WIDTH) y=AREA_WIDTH;
+        index = x * AREA_HEIGHT + y;
     }
-    
+    //_graph.setGraphFromTable(table);
     
     // Remove small "islands"
-    Graph graph = createGraphFromMap();
-    std::vector<Graph> graphs = {};
+    // TO DO
     
-    Vertice start = {0, 0, _table[0][0]};
-    Graph subGraph = groundGraph(graph, start);
-    graphs.push_back(subGraph);
-    for (int i=0; i<AREA_WIDTH; i++) {
-        for (int j=0; j<AREA_HEIGHT; j++) {
-            if (_table[i][j] == 4) continue;
-            start = {i, j, _table[i][j]};
-            bool notVisited = true;
-            for (Graph g : graphs) {
-                if (g.has(start)) {
-                    notVisited = false;
-                    break;
-                }
-            }
-            if (notVisited) {
-                std::cout << "Add a graph" << std::endl;
-                subGraph = groundGraph(graph, start);
-                graphs.push_back(subGraph);
-            }
-        }
-    }
-    for(Graph g : graphs) {
-        if (g.size() < 120) {
-            for (std::pair<Vertice, std::vector<Vertice>> node : g._edges) {
-                Vertice v = node.first;
-                _table[v.x][v.y] = 4;
-            }
-        }
+    // Build bridges
+    // Can be upgrade ?
+    for (int i=0; i<table.size(); i++) {
+        std::function<int (int,int)> toward = [](int x, int y) {return x * AREA_HEIGHT + y;};
+        int x = i / AREA_HEIGHT;
+        int y = i % AREA_HEIGHT;
+        if ((x==0) || (y==0) || (x == AREA_WIDTH-1) || (y==AREA_HEIGHT-1))
+            continue;
+        if (table[i] != 4)
+            continue;
+        int north = toward(x, y-1);
+        int south = toward(x, y+1);
+        int east  = toward(x+1, y);
+        int west  = toward(x-1, y);
+        if (table[east] == 3 && table[west] == 3 && table[south] == 4 && table[north] == 4)
+            table[i] = 2;
+        if (table[south] == 3 && table[north] == 3 && table[east] == 4 && table[west] == 4)
+            table[i] = 2;
     }
     
-    start = {0, 0, _table[0][0]};
-    Graph graphForBridge = waterGraph(graph, start);
-    buildBridge(graphForBridge);
+    _graph.setGraphFromTable(table);
+}
+
+void Map::generativeMapSnow() {
+    // Create GRASS and TREES
     
-    std::cout << graphs.size() << std::endl;
+    std::vector<int> table = _graph.convertGraphToTable();
+    for (int i=0 ; i< table.size(); i++) {
+        int choice = rand()%15;
+        if (choice == 0) table[i] = 25;
+        else if (choice == 1) table[i] = 27;
+        else table[i] = 26;
+    }
+    
+    // Creates RIVER path : LEFT -> RIGHT
+    for(int num=0; num<3; num++) {
+        //srand (time(NULL));
+        int x = 0;
+        int y = rand() %(AREA_HEIGHT-16) + 8;
+        Orientation forward = LEFT;
+        while(x < AREA_WIDTH) {
+            int index = x * AREA_HEIGHT + y;
+            table[index] = 4;
+            
+            Orientation lastOrientation = forward;
+            // If the last orientation wasn't right, then increase change for a right move
+            if (lastOrientation != RIGHT) {
+                int number = rand()%4;
+                if (number == 0) forward = UP;
+                else if (number == 1) forward = DOWN;
+                else forward = RIGHT;
+            }
+            // Else choose a random orientation
+            else
+                forward = randomDirection(rand()%4);
+            
+            // Move forward accordingly the orientation
+            switch (forward) {
+                case RIGHT: x++; break;
+                case UP:    y--; break;
+                case DOWN:  y++; break;
+                default:         break;
+            }
+            // Check if OOB
+            if (y < 0) y=0;
+            if (y > AREA_HEIGHT-1) y=AREA_HEIGHT-1;
+        }
+    }
+    // Creates RIVER path : UP <-> DOWN
+    for(int num=0; num<3; num++) {
+        Orientation forward = LEFT;
+        int x = rand()%(AREA_WIDTH-20) + 10;
+        int y = (rand()%2) * (AREA_HEIGHT-1);
+        bool upToDown = y==0;
+        int index = x * AREA_HEIGHT + y;
+        while(table[index] != 4) {
+            table[index] = 4;
+            Orientation lastOrientation = forward;
+            if (lastOrientation == RIGHT) {
+                int number = rand()%3;
+                if (number == 1) forward = RIGHT;
+                else upToDown ? forward = DOWN : forward = UP;
+            }
+            else if (lastOrientation == LEFT) {
+                int number = rand()%3;
+                if (number == 1) forward = LEFT;
+                else upToDown ? forward = DOWN : forward = UP;
+            }
+            else {
+                int number = rand()%3;
+                if (number == 0) forward = LEFT;
+                else if (number == 1) forward = RIGHT;
+                else upToDown ? forward = DOWN : forward = UP;
+            }
+            switch (forward) {
+                case RIGHT: x++; break;
+                case LEFT:  x--; break;
+                case UP:    y--; break;
+                case DOWN:  y++; break;
+                default:         break;
+            }
+            if (x < 0) x=0;
+            if (x > AREA_WIDTH) y=AREA_WIDTH;
+            index = x * AREA_HEIGHT + y;
+        }
+    }
+    //_graph.setGraphFromTable(table);
+    
+    // Remove small "islands"
+    // TO DO
+    
+    // Build bridges
+    // Can be upgrade ?
+    for (int i=0; i<table.size(); i++) {
+        std::function<int (int,int)> toward = [](int x, int y) {return x * AREA_HEIGHT + y;};
+        int x = i / AREA_HEIGHT;
+        int y = i % AREA_HEIGHT;
+        if ((x==0) || (y==0) || (x == AREA_WIDTH-1) || (y==AREA_HEIGHT-1))
+            continue;
+        if (table[i] != 4)
+            continue;
+        int north = toward(x, y-1);
+        int south = toward(x, y+1);
+        int east  = toward(x+1, y);
+        int west  = toward(x-1, y);
+        if (table[east] == 26 && table[west] == 26 && table[south] == 4 && table[north] == 4)
+            table[i] = 2;
+        if (table[south] == 26 && table[north] == 26 && table[east] == 4 && table[west] == 4)
+            table[i] = 2;
+    }
+    
+    _graph.setGraphFromTable(table);
 }
 
 // Setters
@@ -190,7 +304,7 @@ void Map::setTimer(int timer) {
 }
 
 void Map::setTile(int x, int y, int value) {
-    _table[x][y] = value;
+    //_table[x][y] = value;
 }
 
 void Map::setTexture(const std::string path, SDL_Renderer *renderer) {
@@ -202,185 +316,52 @@ int Map::getTimer() {
     return _timer;
 }
 
-int Map::getTile(int x, int y) {
-    return _table[x][y];
-}
-
-std::vector<std::vector<int>> Map::getTable() {
-    return _table;
-}
-
-std::vector<std::vector<int>> Map::copyTable() {
-    std::vector<std::vector<int>> copy;
-    for (std::vector<int> line : _table) {
-        copy.push_back(line);
+std::vector<int> Map::getVerticesIndices() {
+    std::vector<int> indices;
+    for (Vertice v : _graph._edges) {
+        indices.push_back(v.indice);
     }
-    return copy;
+    return indices;
 }
 
-Graph Map::createGraphFromMap() {
-    Graph graph;
-    for (int i=0; i<AREA_WIDTH; i++) {
-        for (int j=0; j<AREA_HEIGHT; j++) {
-            Vertice v = {i,j,_table[i][j]};
-            // Up Left Corner
-            if (i==0 && j==0) {
-                Vertice v1 = {i+1,j,_table[i+1][j]};
-                Vertice v2 = {i,j+1,_table[i][j+1]};
-                std::vector<Vertice> e = {v1, v2};
-                graph.addEdge(v, e);
-            }
-            // Up Right Corner
-            else if (i==AREA_WIDTH-1 && j==0) {
-                Vertice v1 = {i-1,j,_table[i-1][j]};
-                Vertice v2 = {i,j+1,_table[i][j+1]};
-                std::vector<Vertice> e = {v1, v2};
-                graph.addEdge(v, e);
-            }
-            // Down Left Corner
-            else if (i==0 && j==AREA_HEIGHT-1) {
-                Vertice v1 = {i+1,j,_table[i+1][j]};
-                Vertice v2 = {i,j-1,_table[i][j-1]};
-                std::vector<Vertice> e = {v1, v2};
-                graph.addEdge(v, e);
-            }
-            // Down Right Corner
-            else if (i==AREA_WIDTH-1 && j==AREA_HEIGHT-1) {
-                Vertice v1 = {i-1,j,_table[i-1][j]};
-                Vertice v2 = {i,j-1,_table[i][j-1]};
-                std::vector<Vertice> e = {v1, v2};
-                graph.addEdge(v, e);
-            }
-            // Left Border
-            else if (i==0) {
-                Vertice v1 = {i+1,j,_table[i+1][j]};
-                Vertice v2 = {i,j+1,_table[i][j+1]};
-                Vertice v3 = {i,j-1,_table[i][j-1]};
-                std::vector<Vertice> e = {v1, v2, v3};
-                graph.addEdge(v, e);
-            }
-            // Right Border
-            else if (i==AREA_WIDTH-1) {
-                Vertice v1 = {i-1,j,_table[i-1][j]};
-                Vertice v2 = {i,j+1,_table[i][j+1]};
-                Vertice v3 = {i,j-1,_table[i][j-1]};
-                std::vector<Vertice> e = {v1, v2, v3};
-                graph.addEdge(v, e);
-            }
-            // Up Border
-            else if (j==0) {
-                Vertice v1 = {i+1,j,_table[i+1][j]};
-                Vertice v2 = {i-1,j,_table[i-1][j]};
-                Vertice v3 = {i,j+1,_table[i][j+1]};
-                std::vector<Vertice> e = {v1, v2, v3};
-                graph.addEdge(v, e);
-            }
-            // Down Border
-            else if (j==AREA_HEIGHT-1) {
-                Vertice v1 = {i+1,j,_table[i+1][j]};
-                Vertice v2 = {i-1,j,_table[i-1][j]};
-                Vertice v3 = {i,j-1,_table[i][j-1]};
-                std::vector<Vertice> e = {v1, v2, v3};
-                graph.addEdge(v, e);
-            }
-            // Normal case
-            else {
-                Vertice v1 = {i+1,j,_table[i+1][j]};
-                Vertice v2 = {i-1,j,_table[i-1][j]};
-                Vertice v3 = {i,j+1,_table[i][j+1]};
-                Vertice v4 = {i,j-1,_table[i][j-1]};
-                std::vector<Vertice> e = {v1, v2, v3, v4};
-                graph.addEdge(v, e);
-            }
-        }
-    }
-    return graph;
+void Map::initialiseGraph() {
+    _graph.setGraphFromTable({});
 }
 
-Graph Map::groundGraph(Graph graph, Vertice start) {
-    Graph subGraph = *new Graph();
-
-    std::vector<Vertice> pile;
-    std::vector<Vertice> marks = {};
-    std::vector<Vertice> voisins = graph[start];
+std::vector<Vertice*> Map::groundGraph(const Graph graph, Vertice* start) {
+    //Graph subGraph = *new Graph();
+    std::vector<Vertice*> subGraph;
+    std::vector<Vertice*> pile;
+    std::vector<Vertice*> marks;
+    std::vector<Vertice*> voisins = graph.neighbors(*start);
     
-    subGraph.addEdge(start, voisins);
+    subGraph.push_back(start);
     pile.push_back(start);
     marks.push_back(start);
     // Tant que la pile n'est pas vide (toujours des sommets à visiter)
     while (pile.size() != 0) {
         // Récuperer le sommet
-        Vertice sommet = pile.front();
+        Vertice* sommet = pile.front();
         pile.erase(pile.begin());
-        // Récuperer les voisins
-        voisins = graph[sommet];
-        for (Vertice v : voisins) {
+        // Get neighboors
+        voisins = graph.neighbors(*sommet);
+        // For each neighboor
+        for (Vertice* voisin : voisins) {
+            if (voisin == nullptr) break;
             bool isMarked = false;
-            for (Vertice mark : marks) {
-                if ((v==mark)) {
+            //
+            for (Vertice* mark : marks) {
+                if (voisin==mark) {
                     isMarked=true;
                     break;
                 }
             }
-            if (!isMarked && v.indice != 4) {
-                pile.push_back(v);
-                marks.push_back(v);
-                subGraph.addEdge(v, voisins);
+            if (!isMarked && voisin->indice != 4) {
+                pile.push_back(voisin);
+                marks.push_back(voisin);
+                subGraph.push_back(voisin);
             }
         }
     }
     return subGraph;
-}
-
-Graph Map::waterGraph(Graph graph, Vertice start) {
-    Graph subGraph = *new Graph();
-    
-    std::vector<Vertice> pile;
-    std::vector<Vertice> marks = {};
-    std::vector<Vertice> voisins = graph[start];
-    
-    //subGraph.addEdge(start, voisins);
-    pile.push_back(start);
-    marks.push_back(start);
-    // Tant que la pile n'est pas vide (toujours des sommets à visiter)
-    while (pile.size() != 0) {
-        // Récuperer le sommet
-        Vertice sommet = pile.front();
-        pile.erase(pile.begin());
-        // Récuperer les voisins
-        voisins = graph[sommet];
-        for (Vertice v : voisins) {
-            bool isMarked = false;
-            for (Vertice mark : marks) {
-                if ((v==mark)) {
-                    isMarked=true;
-                    break;
-                }
-            }
-            if (!isMarked) {
-                pile.push_back(v);
-                marks.push_back(v);
-            }
-        }
-        if (sommet.indice == 4) {
-            subGraph.addEdge(sommet, voisins);
-        }
-    }
-    return subGraph;
-}
-
-void Map::buildBridge(Graph g) {
-    std::vector<std::pair<int,int>> pairs;
-    // Tant que la pile n'est pas vide (toujours des sommets à visiter)
-    for (std::pair<Vertice, std::vector<Vertice>> edge : g._edges) {
-        int countWaterVoisin = 0;
-        for (Vertice voisin : edge.second) {
-            if (edge.first.indice != 4) break;
-            if (voisin.indice == 4) countWaterVoisin++;
-        }
-        if (countWaterVoisin==2 and rand()%2==0) pairs.push_back(std::make_pair(edge.first.x,edge.first.y));
-    }
-    for (std::pair<int,int> pair : pairs) {
-        _table[pair.first][pair.second] = 2;
-    }
 }

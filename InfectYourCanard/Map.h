@@ -19,7 +19,7 @@
 class Map {
 private:
     int _timer;
-    std::vector<std::vector<int>> _table;
+    Graph _graph;
     LTexture _texture;
     
 public:
@@ -32,15 +32,12 @@ public:
     SDL_Surface* createFromSurface(const std::string path);
     void makeTexture(const std::string path, SDL_Renderer* renderer);
     void render(SDL_Renderer* gRenderer);
-    void pushNewLine();
-    void pushTile(int line, int value);
     void generativeMapField();
+    void generativeMapSnow();
     
     // Getters
     int getTimer();
-    int getTile(int x, int y);
-    std::vector<std::vector<int>> getTable();
-    std::vector<std::vector<int>> copyTable();
+    std::vector<int> getVerticesIndices();
     
     // Setters
     void setTexture(const std::string path, SDL_Renderer *renderer);
@@ -58,9 +55,7 @@ public:
         }
     }
     
-    Graph createGraphFromMap();
-    Graph groundGraph(Graph g, Vertice start);
-    Graph waterGraph(Graph g, Vertice start);
-    void buildBridge(Graph g);
+    void initialiseGraph();
+    std::vector<Vertice*> groundGraph(const Graph g, Vertice* start);
 };
 #endif /* Map_hpp */

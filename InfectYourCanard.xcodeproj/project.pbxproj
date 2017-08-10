@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF49B3FC1F3CBCE4005F4283 /* LMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF49B3FA1F3CBCE4005F4283 /* LMouse.cpp */; };
+		DF49B3FE1F3CE7A5005F4283 /* resources in Sources */ = {isa = PBXBuildFile; fileRef = DF49B3FD1F3CE7A1005F4283 /* resources */; };
 		DF4B0C431F2FA3E600FB1A94 /* LTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF8FC09D1F24F786004EA181 /* LTexture.cpp */; };
 		DF4B0C441F2FA3E600FB1A94 /* LTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFC455911F2C589900E221F5 /* LTimer.cpp */; };
 		DF4B0C451F2FA3E600FB1A94 /* LTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFC455941F2C8DF800E221F5 /* LTile.cpp */; };
@@ -16,6 +18,7 @@
 		DF4B0C4E1F2FA3E600FB1A94 /* FileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFDC9EF01F1FCEC1003FCFF8 /* FileManager.cpp */; };
 		DF4B0C4F1F2FA3E600FB1A94 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFDC9EF31F1FCEC1003FCFF8 /* main.cpp */; };
 		DFABBBD11F38E4EF00CA452A /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFABBBCF1F38E4EF00CA452A /* Graph.cpp */; };
+		DFABBC051F3C5B5800CA452A /* DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFABBC031F3C5B5800CA452A /* DGrid.cpp */; };
 		DFDC9EE71F1FC18F003FCFF8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDC9EE31F1FC18F003FCFF8 /* SDL2_image.framework */; };
 		DFDC9EE81F1FC18F003FCFF8 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDC9EE41F1FC18F003FCFF8 /* SDL2_mixer.framework */; };
 		DFDC9EE91F1FC18F003FCFF8 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFDC9EE51F1FC18F003FCFF8 /* SDL2_ttf.framework */; };
@@ -35,6 +38,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DF49B3FA1F3CBCE4005F4283 /* LMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LMouse.cpp; sourceTree = "<group>"; };
+		DF49B3FB1F3CBCE4005F4283 /* LMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LMouse.hpp; sourceTree = "<group>"; };
+		DF49B3FD1F3CE7A1005F4283 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
 		DF6DA58F1F1E63FC00D3A1A5 /* InfectYourCanard */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = InfectYourCanard; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF821F401F2BD5BE00EF3227 /* Wheat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wheat.h; sourceTree = "<group>"; };
 		DF821F411F2BD69C00EF3227 /* Vitamin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vitamin.h; sourceTree = "<group>"; };
@@ -43,42 +49,9 @@
 		DFABBBCE1F38C66900CA452A /* CanardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanardModel.h; sourceTree = "<group>"; };
 		DFABBBCF1F38E4EF00CA452A /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
 		DFABBBD01F38E4EF00CA452A /* Graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Graph.hpp; sourceTree = "<group>"; };
-		DFABBBDB1F3C4C3900CA452A /* Cake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cake.png; sourceTree = "<group>"; };
-		DFABBBDC1F3C4C3900CA452A /* CakeArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CakeArea.png; sourceTree = "<group>"; };
-		DFABBBDD1F3C4C3900CA452A /* Canard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Canard.png; sourceTree = "<group>"; };
-		DFABBBDE1F3C4C3900CA452A /* Cheese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cheese.png; sourceTree = "<group>"; };
-		DFABBBDF1F3C4C3900CA452A /* CheeseArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CheeseArea.png; sourceTree = "<group>"; };
-		DFABBBE01F3C4C3900CA452A /* Contamine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Contamine.png; sourceTree = "<group>"; };
-		DFABBBE11F3C4C3900CA452A /* Cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cursor.png; sourceTree = "<group>"; };
-		DFABBBE21F3C4C3900CA452A /* Dead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dead.png; sourceTree = "<group>"; };
-		DFABBBE31F3C4C3900CA452A /* Despite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Despite.png; sourceTree = "<group>"; };
-		DFABBBE41F3C4C3900CA452A /* Hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hamburger.png; sourceTree = "<group>"; };
-		DFABBBE51F3C4C3900CA452A /* HamburgerArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HamburgerArea.png; sourceTree = "<group>"; };
-		DFABBBE61F3C4C3900CA452A /* Mort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mort.png; sourceTree = "<group>"; };
-		DFABBBE71F3C4C3900CA452A /* Soda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Soda.png; sourceTree = "<group>"; };
-		DFABBBE81F3C4C3900CA452A /* SodaArea.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SodaArea.png; sourceTree = "<group>"; };
-		DFABBBE91F3C4C3900CA452A /* Stressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stressed.png; sourceTree = "<group>"; };
-		DFABBBEA1F3C4C3900CA452A /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tileset.png; sourceTree = "<group>"; };
-		DFABBBEC1F3C4C3900CA452A /* duckSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = duckSound.wav; sourceTree = "<group>"; };
-		DFABBBED1F3C4C3900CA452A /* MusicInGame_Desert.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Desert.mid; sourceTree = "<group>"; };
-		DFABBBEE1F3C4C3900CA452A /* MusicInGame_Forest.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Forest.mid; sourceTree = "<group>"; };
-		DFABBBEF1F3C4C3900CA452A /* MusicInGame_Mountain.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Mountain.mid; sourceTree = "<group>"; };
-		DFABBBF01F3C4C3900CA452A /* MusicInGame_Prairie.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Prairie.mid; sourceTree = "<group>"; };
-		DFABBBF11F3C4C3900CA452A /* MusicInGame_Swamp.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Swamp.mid; sourceTree = "<group>"; };
-		DFABBBF21F3C4C3900CA452A /* MusicInGame_Vulcano.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Vulcano.mid; sourceTree = "<group>"; };
-		DFABBBF31F3C4C3900CA452A /* MusicMainTitle.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicMainTitle.mid; sourceTree = "<group>"; };
-		DFABBBF51F3C4C3900CA452A /* FontCanard.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontCanard.TTF; sourceTree = "<group>"; };
-		DFABBBF71F3C4C3900CA452A /* Map_Desert.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Desert.txt; sourceTree = "<group>"; };
-		DFABBBF81F3C4C3900CA452A /* Map_Desert_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Desert_2.txt; sourceTree = "<group>"; };
-		DFABBBF91F3C4C3900CA452A /* Map_Etang.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Etang.txt; sourceTree = "<group>"; };
-		DFABBBFA1F3C4C3900CA452A /* Map_Etang_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Etang_2.txt; sourceTree = "<group>"; };
-		DFABBBFB1F3C4C3900CA452A /* Map_Foret.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Foret.txt; sourceTree = "<group>"; };
-		DFABBBFC1F3C4C3900CA452A /* Map_Foret_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Foret_2.txt; sourceTree = "<group>"; };
-		DFABBBFD1F3C4C3900CA452A /* Map_Moutain.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Moutain.txt; sourceTree = "<group>"; };
-		DFABBBFE1F3C4C3900CA452A /* Map_Moutain_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Moutain_2.txt; sourceTree = "<group>"; };
-		DFABBBFF1F3C4C3900CA452A /* Map_Prairie.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Prairie.txt; sourceTree = "<group>"; };
-		DFABBC001F3C4C3900CA452A /* Map_Volcan.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Volcan.txt; sourceTree = "<group>"; };
-		DFABBC011F3C4C3900CA452A /* Map_Volcan_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Map_Volcan_2.txt; sourceTree = "<group>"; };
+		DFABBC021F3C54CF00CA452A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		DFABBC031F3C5B5800CA452A /* DGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DGrid.cpp; sourceTree = "<group>"; };
+		DFABBC041F3C5B5800CA452A /* DGrid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DGrid.hpp; sourceTree = "<group>"; };
 		DFC455911F2C589900E221F5 /* LTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LTimer.cpp; sourceTree = "<group>"; };
 		DFC455921F2C589900E221F5 /* LTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTimer.h; sourceTree = "<group>"; };
 		DFC455941F2C8DF800E221F5 /* LTile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LTile.cpp; sourceTree = "<group>"; };
@@ -118,6 +91,7 @@
 		DF6DA5861F1E63FC00D3A1A5 = {
 			isa = PBXGroup;
 			children = (
+				DFABBC021F3C54CF00CA452A /* README.md */,
 				DF6DA5911F1E63FC00D3A1A5 /* InfectYourCanard */,
 				DF6DA5901F1E63FC00D3A1A5 /* Products */,
 				DFDC9EE21F1FC18F003FCFF8 /* Frameworks */,
@@ -135,7 +109,7 @@
 		DF6DA5911F1E63FC00D3A1A5 /* InfectYourCanard */ = {
 			isa = PBXGroup;
 			children = (
-				DFABBBD91F3C4C2200CA452A /* resources */,
+				DF49B3FD1F3CE7A1005F4283 /* resources */,
 				DFABBBD81F3C4C0300CA452A /* src */,
 			);
 			path = InfectYourCanard;
@@ -162,6 +136,8 @@
 				DFC455921F2C589900E221F5 /* LTimer.h */,
 				DFC455941F2C8DF800E221F5 /* LTile.cpp */,
 				DFC455951F2C8DF800E221F5 /* LTile.h */,
+				DF49B3FA1F3CBCE4005F4283 /* LMouse.cpp */,
+				DF49B3FB1F3CBCE4005F4283 /* LMouse.hpp */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -172,6 +148,8 @@
 				DFDC9EEB1F1FCEC1003FCFF8 /* Canard.cpp */,
 				DFDC9EEC1F1FCEC1003FCFF8 /* Canard.h */,
 				DFABBBCE1F38C66900CA452A /* CanardModel.h */,
+				DFABBC031F3C5B5800CA452A /* DGrid.cpp */,
+				DFABBC041F3C5B5800CA452A /* DGrid.hpp */,
 			);
 			name = duck;
 			sourceTree = "<group>";
@@ -209,85 +187,6 @@
 			);
 			name = src;
 			sourceTree = "<group>";
-		};
-		DFABBBD91F3C4C2200CA452A /* resources */ = {
-			isa = PBXGroup;
-			children = (
-				DFABBBDA1F3C4C3900CA452A /* image */,
-				DFABBBEB1F3C4C3900CA452A /* audio */,
-				DFABBBF41F3C4C3900CA452A /* font */,
-				DFABBBF61F3C4C3900CA452A /* map */,
-			);
-			name = resources;
-			sourceTree = "<group>";
-		};
-		DFABBBDA1F3C4C3900CA452A /* image */ = {
-			isa = PBXGroup;
-			children = (
-				DFABBBDB1F3C4C3900CA452A /* Cake.png */,
-				DFABBBDC1F3C4C3900CA452A /* CakeArea.png */,
-				DFABBBDD1F3C4C3900CA452A /* Canard.png */,
-				DFABBBDE1F3C4C3900CA452A /* Cheese.png */,
-				DFABBBDF1F3C4C3900CA452A /* CheeseArea.png */,
-				DFABBBE01F3C4C3900CA452A /* Contamine.png */,
-				DFABBBE11F3C4C3900CA452A /* Cursor.png */,
-				DFABBBE21F3C4C3900CA452A /* Dead.png */,
-				DFABBBE31F3C4C3900CA452A /* Despite.png */,
-				DFABBBE41F3C4C3900CA452A /* Hamburger.png */,
-				DFABBBE51F3C4C3900CA452A /* HamburgerArea.png */,
-				DFABBBE61F3C4C3900CA452A /* Mort.png */,
-				DFABBBE71F3C4C3900CA452A /* Soda.png */,
-				DFABBBE81F3C4C3900CA452A /* SodaArea.png */,
-				DFABBBE91F3C4C3900CA452A /* Stressed.png */,
-				DFABBBEA1F3C4C3900CA452A /* Tileset.png */,
-			);
-			name = image;
-			path = build/Release/resources/image;
-			sourceTree = SOURCE_ROOT;
-		};
-		DFABBBEB1F3C4C3900CA452A /* audio */ = {
-			isa = PBXGroup;
-			children = (
-				DFABBBEC1F3C4C3900CA452A /* duckSound.wav */,
-				DFABBBED1F3C4C3900CA452A /* MusicInGame_Desert.mid */,
-				DFABBBEE1F3C4C3900CA452A /* MusicInGame_Forest.mid */,
-				DFABBBEF1F3C4C3900CA452A /* MusicInGame_Mountain.mid */,
-				DFABBBF01F3C4C3900CA452A /* MusicInGame_Prairie.mid */,
-				DFABBBF11F3C4C3900CA452A /* MusicInGame_Swamp.mid */,
-				DFABBBF21F3C4C3900CA452A /* MusicInGame_Vulcano.mid */,
-				DFABBBF31F3C4C3900CA452A /* MusicMainTitle.mid */,
-			);
-			name = audio;
-			path = build/Release/resources/audio;
-			sourceTree = SOURCE_ROOT;
-		};
-		DFABBBF41F3C4C3900CA452A /* font */ = {
-			isa = PBXGroup;
-			children = (
-				DFABBBF51F3C4C3900CA452A /* FontCanard.TTF */,
-			);
-			name = font;
-			path = build/Release/resources/font;
-			sourceTree = SOURCE_ROOT;
-		};
-		DFABBBF61F3C4C3900CA452A /* map */ = {
-			isa = PBXGroup;
-			children = (
-				DFABBBF71F3C4C3900CA452A /* Map_Desert.txt */,
-				DFABBBF81F3C4C3900CA452A /* Map_Desert_2.txt */,
-				DFABBBF91F3C4C3900CA452A /* Map_Etang.txt */,
-				DFABBBFA1F3C4C3900CA452A /* Map_Etang_2.txt */,
-				DFABBBFB1F3C4C3900CA452A /* Map_Foret.txt */,
-				DFABBBFC1F3C4C3900CA452A /* Map_Foret_2.txt */,
-				DFABBBFD1F3C4C3900CA452A /* Map_Moutain.txt */,
-				DFABBBFE1F3C4C3900CA452A /* Map_Moutain_2.txt */,
-				DFABBBFF1F3C4C3900CA452A /* Map_Prairie.txt */,
-				DFABBC001F3C4C3900CA452A /* Map_Volcan.txt */,
-				DFABBC011F3C4C3900CA452A /* Map_Volcan_2.txt */,
-			);
-			name = map;
-			path = build/Release/resources/map;
-			sourceTree = SOURCE_ROOT;
 		};
 		DFDC9EE21F1FC18F003FCFF8 /* Frameworks */ = {
 			isa = PBXGroup;
@@ -378,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF49B3FE1F3CE7A5005F4283 /* resources in Sources */,
 				DF4B0C431F2FA3E600FB1A94 /* LTexture.cpp in Sources */,
 				DFABBBD11F38E4EF00CA452A /* Graph.cpp in Sources */,
 				DF4B0C441F2FA3E600FB1A94 /* LTimer.cpp in Sources */,
@@ -385,7 +285,9 @@
 				DF4B0C461F2FA3E600FB1A94 /* Map.cpp in Sources */,
 				DF4B0C481F2FA3E600FB1A94 /* Canard.cpp in Sources */,
 				DF4B0C4D1F2FA3E600FB1A94 /* Model.cpp in Sources */,
+				DF49B3FC1F3CBCE4005F4283 /* LMouse.cpp in Sources */,
 				DF4B0C4E1F2FA3E600FB1A94 /* FileManager.cpp in Sources */,
+				DFABBC051F3C5B5800CA452A /* DGrid.cpp in Sources */,
 				DF4B0C4F1F2FA3E600FB1A94 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,6 +457,7 @@
 				DFABBBD71F3C485800CA452A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

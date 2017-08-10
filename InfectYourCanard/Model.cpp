@@ -10,28 +10,35 @@
 
 void Model::initialiseDucks() {
     for (int i = 0; i<_numberOfDucks; i++) {
-        pushDuck(new Canard(HealthyTexture));
-    }
-    for (Canard *canard : _ducks)
+        Canard *canard = new Canard(HealthyTexture);
+        pushDuck(canard);
         canard->initialisePosition(_obstacles);
+        _duck.addDuck(canard);
+    }
 }
 
 void Model::initialiseObstacles() {
-    std::vector<std::vector<int>> copy = _map->copyTable();
+    std::vector<int> indices_vertices = _map->getVerticesIndices();
     for (int line=0; line<AREA_WIDTH; line++) {
         for (int column=0; column<AREA_HEIGHT; column++) {
+            int index = column + line * AREA_HEIGHT;
             for (int tile : impassable) {
-                if( copy[line][column] == tile) {
+                if( indices_vertices[index] == tile) {
                     SDL_Rect obstacle = {
                         line * TILE_WIDTH,
                         column * TILE_HEIGHT,
                         TILE_WIDTH,
                         TILE_HEIGHT};
                     _obstacles.push_back(obstacle);
+                    
                 }
             }
         }
     }
+}
+
+void Model::initialiseFood() {
+    _foods = {0, 0};
 }
 
 void Model::render(SDL_Renderer *render, int turn) {
@@ -46,8 +53,9 @@ void Model::render(SDL_Renderer *render, int turn) {
     }
 }
 
-void Model::update(SDL_Renderer* render, int turnTime, SDL_Rect mouseRect) {
+void Model::update(SDL_Renderer* render, int turnTime, LMouse* mouse) {
     
+    //_duck.handle();
     // For each ducks
     for (Canard* target: _ducks) {
         bool locked = false;
@@ -182,14 +190,31 @@ void Model::update(SDL_Renderer* render, int turnTime, SDL_Rect mouseRect) {
             food = nullptr;
         }*/
         SDL_Rect source = target->getCollider();
-        if ( (source.x > mouseRect.x && source.x < mouseRect.x + mouseRect.w)
-            && (source.y > mouseRect.y && source.y < mouseRect.y + mouseRect.h)) {
-            if (_foods.size() != 0) {
-                Food* food = _foods[0];
+        int x = (source.x - mouse->getX());
+        int y = (source.y - mouse->getY());
+        float distance = sqrtf(x*x + y*y);
+        if (distance < mouse->realRadius() && mouse->isPressed()) {
+            mouse->switchOffButton();
+            Food* food = nullptr;
+            switch (mouse->getStatus()) {
+                case VITAMIN:
+                    if (_foods[(int)VITAMIN] < 1) {
+                        food = new Vitamin();
+                        increaseFood((int)VITAMIN);
+                    }
+                    break;
+                case WHEAT:
+                    if (_foods[(int)WHEAT] < 1) {
+                        food = new Wheat();
+                        increaseFood((int)WHEAT);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (food != nullptr) {
                 if (target->gulpDown(*food))
                     target->setTexture(FattyTexture);
-                //target->render(render, timeStep);
-                eraseFood(food);
                 delete food;
                 food = nullptr;
             }
@@ -197,7 +222,7 @@ void Model::update(SDL_Renderer* render, int turnTime, SDL_Rect mouseRect) {
         
         target->update(turnTime, _obstacles, locked);
         int duckWeight = target->getWeight();
-        if ((duckWeight > 3000 or duckWeight < target->getMinimum()) and target->getState() != DEAD) {
+        if ((duckWeight > target->getMaximum() or duckWeight < target->getMinimum()) and target->getState() != DEAD) {
             target->setState(DEAD);
             target->setTexture(DeadTexture);
             std::cout << "A duck has been slained" << std::endl;

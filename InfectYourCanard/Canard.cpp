@@ -87,6 +87,7 @@ void Canard::initialisePosition(const std::vector<SDL_Rect> obstacles) {
             }
         }
     } while(doit);
+    
 }
 
 void Canard::deletion() {
