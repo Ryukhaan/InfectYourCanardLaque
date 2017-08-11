@@ -25,6 +25,7 @@ typedef enum {
 
 class Canard {
     friend class DGrid;
+    //class Status* _status;
     
 private:
     //bool _initialized;

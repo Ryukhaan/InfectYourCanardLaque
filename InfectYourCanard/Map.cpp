@@ -189,7 +189,7 @@ void Map::generativeMapField() {
 
 void Map::generativeMapSnow() {
     // Create GRASS and TREES
-    
+    std::function<int (int,int)> toward = [](int x, int y) {return x * AREA_HEIGHT + y;};
     std::vector<int> table = _graph.convertGraphToTable();
     for (int i=0 ; i< table.size(); i++) {
         int choice = rand()%15;
@@ -198,87 +198,54 @@ void Map::generativeMapSnow() {
         else table[i] = 26;
     }
     
+    //srand (time(NULL));
+    int x = rand()%(AREA_WIDTH-20) + 10;
+    int y = 1;
+    int horaire = 3;
+    
     // Creates RIVER path : LEFT -> RIGHT
-    for(int num=0; num<3; num++) {
-        //srand (time(NULL));
-        int x = 0;
-        int y = rand() %(AREA_HEIGHT-16) + 8;
-        Orientation forward = LEFT;
-        while(x < AREA_WIDTH) {
-            int index = x * AREA_HEIGHT + y;
-            table[index] = 4;
-            
-            Orientation lastOrientation = forward;
-            // If the last orientation wasn't right, then increase change for a right move
-            if (lastOrientation != RIGHT) {
-                int number = rand()%4;
-                if (number == 0) forward = UP;
-                else if (number == 1) forward = DOWN;
-                else forward = RIGHT;
-            }
-            // Else choose a random orientation
-            else
-                forward = randomDirection(rand()%4);
-            
-            // Move forward accordingly the orientation
-            switch (forward) {
-                case RIGHT: x++; break;
-                case UP:    y--; break;
-                case DOWN:  y++; break;
-                default:         break;
-            }
-            // Check if OOB
-            if (y < 0) y=0;
-            if (y > AREA_HEIGHT-1) y=AREA_HEIGHT-1;
+    while(y < AREA_HEIGHT-1) {
+        table[toward(x-1, y)] = 4;
+        table[toward(x-1, y-1)] = 4;
+        table[toward(x-1, y+1)] = 4;
+        
+        table[toward(x, y)] = 4;
+        table[toward(x, y-1)] = 4;
+        table[toward(x, y+1)] = 4;
+        
+        table[toward(x+1, y)] = 4;
+        table[toward(x+1, y-1)] = 4;
+        table[toward(x+1, y+1)] = 4;
+        
+        int right = rand()%2;
+        right == 0 ? horaire-- : horaire++;
+        horaire = horaire % 8;
+        switch (horaire) {
+            // TOP-LEFT
+            case 0: x--; y--; break;
+            case 1: x--; break;
+            case 2: x--; y++; break;
+            case 3: y++; break;
+            case 4: x++; y++; break;
+            case 5: x++; break;
+            case 6: x++; y--; break;
+            case 7: y--; break;
+            default:
+                break;
         }
+        if (x < 1) x = 1;
+        if (x > AREA_WIDTH-1) x = AREA_WIDTH-1;
+        if (y < 1) y = 1;
     }
-    // Creates RIVER path : UP <-> DOWN
-    for(int num=0; num<3; num++) {
-        Orientation forward = LEFT;
-        int x = rand()%(AREA_WIDTH-20) + 10;
-        int y = (rand()%2) * (AREA_HEIGHT-1);
-        bool upToDown = y==0;
-        int index = x * AREA_HEIGHT + y;
-        while(table[index] != 4) {
-            table[index] = 4;
-            Orientation lastOrientation = forward;
-            if (lastOrientation == RIGHT) {
-                int number = rand()%3;
-                if (number == 1) forward = RIGHT;
-                else upToDown ? forward = DOWN : forward = UP;
-            }
-            else if (lastOrientation == LEFT) {
-                int number = rand()%3;
-                if (number == 1) forward = LEFT;
-                else upToDown ? forward = DOWN : forward = UP;
-            }
-            else {
-                int number = rand()%3;
-                if (number == 0) forward = LEFT;
-                else if (number == 1) forward = RIGHT;
-                else upToDown ? forward = DOWN : forward = UP;
-            }
-            switch (forward) {
-                case RIGHT: x++; break;
-                case LEFT:  x--; break;
-                case UP:    y--; break;
-                case DOWN:  y++; break;
-                default:         break;
-            }
-            if (x < 0) x=0;
-            if (x > AREA_WIDTH) y=AREA_WIDTH;
-            index = x * AREA_HEIGHT + y;
-        }
-    }
-    //_graph.setGraphFromTable(table);
+
     
     // Remove small "islands"
     // TO DO
     
     // Build bridges
     // Can be upgrade ?
-    for (int i=0; i<table.size(); i++) {
-        std::function<int (int,int)> toward = [](int x, int y) {return x * AREA_HEIGHT + y;};
+    /*
+     for (int i=0; i<table.size(); i++) {
         int x = i / AREA_HEIGHT;
         int y = i % AREA_HEIGHT;
         if ((x==0) || (y==0) || (x == AREA_WIDTH-1) || (y==AREA_HEIGHT-1))
@@ -289,12 +256,81 @@ void Map::generativeMapSnow() {
         int south = toward(x, y+1);
         int east  = toward(x+1, y);
         int west  = toward(x-1, y);
-        if (table[east] == 26 && table[west] == 26 && table[south] == 4 && table[north] == 4)
-            table[i] = 2;
-        if (table[south] == 26 && table[north] == 26 && table[east] == 4 && table[west] == 4)
-            table[i] = 2;
+        Orientation orientation = LEFT;
+        if (table[east] == 26 && table[west] == 4 && table[south] == 4 && table[north] == 4)
+            orientation = RIGHT;
+        if (table[east] == 4 && table[west] == 26 && table[south] == 4 && table[north] == 4)
+            orientation = LEFT;
+        if (table[east] == 4 && table[west] == 4 && table[south] == 26 && table[north] == 4)
+            orientation = DOWN;
+        if (table[east] == 4 && table[west] == 4 && table[south] == 4 && table[north] == 26)
+            orientation = UP;
+        switch (orientation) {
+            case DOWN: y++; break;
+            case UP: y--; break;
+            case LEFT: x--; break;
+            case RIGHT: x++; break;
+            default: break;
+        }
+        int j = x * AREA_HEIGHT + y;
+        while(table[j] == 4) {
+            table[j] = 2;
+            switch (orientation) {
+                case DOWN: y++; break;
+                case UP: y--; break;
+                case LEFT: x--; break;
+                case RIGHT: x++; break;
+                default: break;
+            }
+        }
+    }
+    */
+    _graph.setGraphFromTable(table);
+}
+
+void Map::generativeMapLava() {
+    std::function<int (int,int)> toward = [](int x, int y) {return x * AREA_HEIGHT + y;};
+    std::vector<int> table = _graph.convertGraphToTable();
+    for (int i=0 ; i< table.size(); i++) {
+        table[i] = 7;
     }
     
+    int limit = 1250;
+    int mass = 0;
+    std::vector<int> pile;
+    pile.push_back(toward(AREA_WIDTH / 2, AREA_HEIGHT / 2));
+    while (mass < limit) {
+        while (pile.size() != 0) {
+            if (mass >= limit) break;
+            int index = pile.back();
+            pile.pop_back();
+            mass ++;
+            if (table[index] == 6) continue;
+            table[index] = 6;
+            for (int child=0; child<2; child++) {
+                int x = index / AREA_HEIGHT;
+                int y = index % AREA_HEIGHT;
+                Orientation children = randomDirection(rand()%4);
+                switch (children) {
+                    case LEFT:  x--; break;
+                    case RIGHT: x++; break;
+                    case UP:    y--; break;
+                    case DOWN:  y++; break;
+                    default:
+                        break;
+                }
+                x = std::min(AREA_WIDTH-1,std::max(0,x));
+                y = std::min(AREA_HEIGHT-1,std::max(0,y));
+                pile.push_back(toward(x,y));
+            }
+        }
+        pile.push_back(toward(rand()%AREA_WIDTH, rand()%AREA_HEIGHT));
+    }
+    for (int i=0 ; i< table.size(); i++) {
+        if (table[i] == 6 )
+            if (rand()%10==0)
+                table[i] = 5;
+    }
     _graph.setGraphFromTable(table);
 }
 

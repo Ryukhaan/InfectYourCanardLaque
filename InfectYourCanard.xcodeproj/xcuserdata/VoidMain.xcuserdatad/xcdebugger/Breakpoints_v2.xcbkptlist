@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/FileManager.cpp"
-            timestampString = "524084141.7873"
+            timestampString = "524088414.749631"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41">
+            startingLineNumber = "48"
+            endingLineNumber = "48">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Map.cpp"
-            timestampString = "524083318.87096"
+            timestampString = "524174268.628053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "Map::groundGraph(const Graph graph, Vertice* start)"
             landmarkType = "7">
          </BreakpointContent>
@@ -127,38 +127,6 @@
             endingLineNumber = "88"
             landmarkName = "Canard::initialisePosition(const std::vector&lt;SDL_Rect&gt; obstacles)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InfectYourCanard/main.cpp"
-            timestampString = "524084408.70537"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "main(int argc, const char * argv[])"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "InfectYourCanard/main.cpp"
-            timestampString = "524084408.70537"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "main(int argc, const char * argv[])"
-            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -215,22 +183,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "InfectYourCanard/main.cpp"
-            timestampString = "524084408.70537"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "main(int argc, const char * argv[])"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Map.cpp"
             timestampString = "524080875.045139"
             startingColumnNumber = "9223372036854775807"
@@ -264,11 +216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Map.cpp"
-            timestampString = "524083318.87096"
+            timestampString = "524174268.628053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "398"
+            endingLineNumber = "398"
             landmarkName = "Map::groundGraph(const Graph graph, Vertice* start)"
             landmarkType = "7">
          </BreakpointContent>
@@ -280,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Map.cpp"
-            timestampString = "524083318.87096"
+            timestampString = "524174268.628053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
             landmarkName = "Map::groundGraph(const Graph graph, Vertice* start)"
             landmarkType = "7">
          </BreakpointContent>
@@ -296,11 +248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Map.cpp"
-            timestampString = "524083318.87096"
+            timestampString = "524174268.628053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "Map::groundGraph(const Graph graph, Vertice* start)"
             landmarkType = "7">
          </BreakpointContent>
@@ -312,11 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Map.cpp"
-            timestampString = "524083318.87096"
+            timestampString = "524174268.628053"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "Map::groundGraph(const Graph graph, Vertice* start)"
             landmarkType = "7">
          </BreakpointContent>
@@ -488,11 +440,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Model.h"
-            timestampString = "524083940.148028"
+            timestampString = "524087467.21445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "moreThanOneFood(int index)"
             landmarkType = "7">
          </BreakpointContent>
@@ -504,12 +456,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "InfectYourCanard/Model.h"
-            timestampString = "524083940.148028"
+            timestampString = "524087467.21445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "moreThanOneFood(int index)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "InfectYourCanard/FileManager.cpp"
+            timestampString = "524088414.749631"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "FileManager::readMap(Model *model)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

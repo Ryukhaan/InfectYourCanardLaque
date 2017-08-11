@@ -53,51 +53,57 @@ int main(int argc, const char * argv[]) {
     SDL_UpdateWindowSurface( window );
     
     //SDL_Surface* tileset= IMG_Load("resources/image/Tileset.png");
-    
     srand (time(NULL));
     
-    int zone = rand()%2;
-    // Load Map's Model
+    //int zone = rand()%3;
+    int zone = 2;
+    // Initialise all pointers
+    Mix_Music *music = nullptr;
+    FileManager *fileManager = nullptr;
+    Model *model = nullptr;
+    SDL_Event* event = nullptr;
+    LMouse* mouse = nullptr;
+    Mix_Chunk* sound = nullptr;
     
-    FileManager *fileManager;
-    zone == 1 ? fileManager = new FileManager("./resources/map/Mountain.txt")
-                : fileManager = new FileManager("./resources/map/Hills.txt");
-    Model *model = new Model(render);
+    // Model creation
+    if (zone == 0) fileManager = new FileManager("./resources/map/Mountain.txt");
+    if (zone == 1) fileManager = new FileManager("./resources/map/Hills.txt");
+    if (zone == 2) fileManager = new FileManager("./resources/map/Vulcano.txt");
+    
+    model = new Model(render);
     fileManager->readMap(model);
     delete fileManager;
-    
-    SDL_Event* event = new SDL_Event();
+    model->generativeMap(zone);
+    model->makeMap("./resources/image/Tileset.png", render);
+    // Initialise Obstacles for the model (all sprite that can't be passed)
+    model->initialiseObstacles();
+    model->initialiseDucks();
+    model->initialiseFood();
     
     // Mouse Creation
-    LMouse* mouse = new LMouse();
+    mouse = new LMouse();
     mouse->setRadius(TILE_WIDTH);
     SDL_Surface* mouseSurfaceVitamin = IMG_Load("./resources/image/MouseVitamin.png");
     SDL_Surface* mouseSurfaceWheat = IMG_Load("./resources/image/MouseWheat.png");
     mouse->setCursor(mouseSurfaceVitamin);
     while (SDL_ShowCursor(SDL_ENABLE) != SDL_ENABLE) {};
     SDL_SetCursor(NULL);
-    
-    model->generativeMap(zone);
-    model->makeMap("resources/image/Tileset.png", render);
-    
-    // Initialise Obstacles for the model (all sprite that can't be passed)
-    model->initialiseObstacles();
-    model->initialiseDucks();
-    model->initialiseFood();
     int turn = 0;
     LTimer stepTimer;
 
-    // Music
+    // Music initialse
     Mix_OpenAudio(8000, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 64);
-    Mix_Music *music;
-    zone == 0 ? music = Mix_LoadMUS("./resources/audio/Hills.mid")
-                : music = Mix_LoadMUS("./resources/audio/Mountain.mid");
+    if (zone == 0) music = Mix_LoadMUS("./resources/audio/Hills.mid");
+    if (zone == 1) music = Mix_LoadMUS("./resources/audio/Mountain.mid");
+    if (zone == 2) music = Mix_LoadMUS("./resources/audio/Vulcano.mid");
+    
     if (!Mix_PlayingMusic()) {
         Mix_PlayMusic(music, -1);
         Mix_VolumeMusic(MIX_MAX_VOLUME/6);
     }
-    Mix_Chunk* sound = Mix_LoadWAV("./resources/audio/duckSound.wav");;
+    sound = Mix_LoadWAV("./resources/audio/duckSound.wav");
     
+    event = new SDL_Event();
     bool quit = false;
     while(!quit) {
         float timeStep = stepTimer.getTicks() / 1000.f;
@@ -181,6 +187,5 @@ int main(int argc, const char * argv[]) {
     //Quit SDL subsystems
     SDL_Quit();
     // insert code here...
-    
     return 0;
 }

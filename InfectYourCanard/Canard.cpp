@@ -120,7 +120,7 @@ void Canard::putOnWeight() {
             break;
         case  STRESSED:
             // Stress decrease equation
-            _weight /= (_ratio_weight * 1.034);
+            _weight /= (_ratio_weight * 1.04);
         default:
             break;
     }
@@ -160,7 +160,9 @@ void Canard::update(Uint32 timestep, const std::vector<SDL_Rect> obstacles, bool
         if (not _movable) {
             _collider = back;
             //randomWalk(locked);
-            int newOrientation = (rand() % 4 * 2 + 1 + _orientation) % 4;
+            int newOrientation = (rand() % 4);
+            while (newOrientation == _orientation)
+                newOrientation = rand() % 4;
             setOrientation(newOrientation);
         }
         if (_state == STRESSED) {

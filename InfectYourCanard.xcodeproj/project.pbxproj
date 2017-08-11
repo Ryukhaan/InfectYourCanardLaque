@@ -7,8 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF1DB5691F3E469500A57A9A /* Vulcano.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF1DB5681F3E469500A57A9A /* Vulcano.txt */; };
+		DF1DB56B1F3E46A900A57A9A /* Vulcano.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF1DB56A1F3E46A900A57A9A /* Vulcano.mid */; };
 		DF49B3FC1F3CBCE4005F4283 /* LMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF49B3FA1F3CBCE4005F4283 /* LMouse.cpp */; };
-		DF49B3FE1F3CE7A5005F4283 /* resources in Sources */ = {isa = PBXBuildFile; fileRef = DF49B3FD1F3CE7A1005F4283 /* resources */; };
+		DF49B43C1F3CF5DD005F4283 /* duckSound.wav in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B4181F3CF566005F4283 /* duckSound.wav */; };
+		DF49B43D1F3CF5DD005F4283 /* Hills.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B4191F3CF566005F4283 /* Hills.mid */; };
+		DF49B43E1F3CF5DD005F4283 /* Mountain.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B41A1F3CF566005F4283 /* Mountain.mid */; };
+		DF49B43F1F3CF5DD005F4283 /* MusicInGame_Desert.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B41B1F3CF566005F4283 /* MusicInGame_Desert.mid */; };
+		DF49B4401F3CF5DD005F4283 /* MusicInGame_Forest.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B41C1F3CF566005F4283 /* MusicInGame_Forest.mid */; };
+		DF49B4411F3CF5DD005F4283 /* MusicInGame_Swamp.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B41D1F3CF566005F4283 /* MusicInGame_Swamp.mid */; };
+		DF49B4431F3CF5DD005F4283 /* MusicMainTitle.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B41F1F3CF566005F4283 /* MusicMainTitle.mid */; };
+		DF49B4561F3CF606005F4283 /* Hills.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B4321F3CF566005F4283 /* Hills.txt */; };
+		DF49B4571F3CF606005F4283 /* Mountain.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B43B1F3CF566005F4283 /* Mountain.txt */; };
+		DF49B4591F3CF629005F4283 /* Canard.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B4241F3CF566005F4283 /* Canard.png */; };
+		DF49B45A1F3CF629005F4283 /* Contamine.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B4261F3CF566005F4283 /* Contamine.png */; };
+		DF49B45B1F3CF629005F4283 /* Dead.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B4281F3CF566005F4283 /* Dead.png */; };
+		DF49B45C1F3CF629005F4283 /* MouseVitamin.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B42C1F3CF566005F4283 /* MouseVitamin.png */; };
+		DF49B45D1F3CF629005F4283 /* MouseWheat.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B42D1F3CF566005F4283 /* MouseWheat.png */; };
+		DF49B45E1F3CF629005F4283 /* Stressed.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B42F1F3CF566005F4283 /* Stressed.png */; };
+		DF49B45F1F3CF629005F4283 /* Tileset.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF49B4301F3CF566005F4283 /* Tileset.png */; };
 		DF4B0C431F2FA3E600FB1A94 /* LTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF8FC09D1F24F786004EA181 /* LTexture.cpp */; };
 		DF4B0C441F2FA3E600FB1A94 /* LTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFC455911F2C589900E221F5 /* LTimer.cpp */; };
 		DF4B0C451F2FA3E600FB1A94 /* LTile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DFC455941F2C8DF800E221F5 /* LTile.cpp */; };
@@ -26,10 +43,56 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		DF49B4151F3CF511005F4283 /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ./resources/audio;
+			dstSubfolderSpec = 7;
+			files = (
+				DF49B43C1F3CF5DD005F4283 /* duckSound.wav in Copy Files */,
+				DF49B43D1F3CF5DD005F4283 /* Hills.mid in Copy Files */,
+				DF49B43E1F3CF5DD005F4283 /* Mountain.mid in Copy Files */,
+				DF49B43F1F3CF5DD005F4283 /* MusicInGame_Desert.mid in Copy Files */,
+				DF49B4401F3CF5DD005F4283 /* MusicInGame_Forest.mid in Copy Files */,
+				DF49B4411F3CF5DD005F4283 /* MusicInGame_Swamp.mid in Copy Files */,
+				DF49B4431F3CF5DD005F4283 /* MusicMainTitle.mid in Copy Files */,
+				DF1DB56B1F3E46A900A57A9A /* Vulcano.mid in Copy Files */,
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF49B4551F3CF5F3005F4283 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ./resources/map;
+			dstSubfolderSpec = 7;
+			files = (
+				DF49B4561F3CF606005F4283 /* Hills.txt in CopyFiles */,
+				DF49B4571F3CF606005F4283 /* Mountain.txt in CopyFiles */,
+				DF1DB5691F3E469500A57A9A /* Vulcano.txt in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF49B4581F3CF609005F4283 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = ./resources/image;
+			dstSubfolderSpec = 7;
+			files = (
+				DF49B4591F3CF629005F4283 /* Canard.png in CopyFiles */,
+				DF49B45A1F3CF629005F4283 /* Contamine.png in CopyFiles */,
+				DF49B45B1F3CF629005F4283 /* Dead.png in CopyFiles */,
+				DF49B45C1F3CF629005F4283 /* MouseVitamin.png in CopyFiles */,
+				DF49B45D1F3CF629005F4283 /* MouseWheat.png in CopyFiles */,
+				DF49B45E1F3CF629005F4283 /* Stressed.png in CopyFiles */,
+				DF49B45F1F3CF629005F4283 /* Tileset.png in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DF6DA58D1F1E63FC00D3A1A5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /usr/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
 			);
@@ -38,9 +101,40 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DF1DB5681F3E469500A57A9A /* Vulcano.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Vulcano.txt; sourceTree = "<group>"; };
+		DF1DB56A1F3E46A900A57A9A /* Vulcano.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Vulcano.mid; sourceTree = "<group>"; };
 		DF49B3FA1F3CBCE4005F4283 /* LMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LMouse.cpp; sourceTree = "<group>"; };
 		DF49B3FB1F3CBCE4005F4283 /* LMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LMouse.hpp; sourceTree = "<group>"; };
-		DF49B3FD1F3CE7A1005F4283 /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
+		DF49B4181F3CF566005F4283 /* duckSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = duckSound.wav; sourceTree = "<group>"; };
+		DF49B4191F3CF566005F4283 /* Hills.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Hills.mid; sourceTree = "<group>"; };
+		DF49B41A1F3CF566005F4283 /* Mountain.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Mountain.mid; sourceTree = "<group>"; };
+		DF49B41B1F3CF566005F4283 /* MusicInGame_Desert.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Desert.mid; sourceTree = "<group>"; };
+		DF49B41C1F3CF566005F4283 /* MusicInGame_Forest.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Forest.mid; sourceTree = "<group>"; };
+		DF49B41D1F3CF566005F4283 /* MusicInGame_Swamp.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicInGame_Swamp.mid; sourceTree = "<group>"; };
+		DF49B41F1F3CF566005F4283 /* MusicMainTitle.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = MusicMainTitle.mid; sourceTree = "<group>"; };
+		DF49B4211F3CF566005F4283 /* FontCanard.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontCanard.TTF; sourceTree = "<group>"; };
+		DF49B4231F3CF566005F4283 /* Cake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cake.png; sourceTree = "<group>"; };
+		DF49B4241F3CF566005F4283 /* Canard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Canard.png; sourceTree = "<group>"; };
+		DF49B4251F3CF566005F4283 /* Cheese.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cheese.png; sourceTree = "<group>"; };
+		DF49B4261F3CF566005F4283 /* Contamine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Contamine.png; sourceTree = "<group>"; };
+		DF49B4271F3CF566005F4283 /* Cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cursor.png; sourceTree = "<group>"; };
+		DF49B4281F3CF566005F4283 /* Dead.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dead.png; sourceTree = "<group>"; };
+		DF49B4291F3CF566005F4283 /* Despite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Despite.png; sourceTree = "<group>"; };
+		DF49B42A1F3CF566005F4283 /* Hamburger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Hamburger.png; sourceTree = "<group>"; };
+		DF49B42B1F3CF566005F4283 /* Mort.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mort.png; sourceTree = "<group>"; };
+		DF49B42C1F3CF566005F4283 /* MouseVitamin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MouseVitamin.png; sourceTree = "<group>"; };
+		DF49B42D1F3CF566005F4283 /* MouseWheat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MouseWheat.png; sourceTree = "<group>"; };
+		DF49B42E1F3CF566005F4283 /* Soda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Soda.png; sourceTree = "<group>"; };
+		DF49B42F1F3CF566005F4283 /* Stressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stressed.png; sourceTree = "<group>"; };
+		DF49B4301F3CF566005F4283 /* Tileset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tileset.png; sourceTree = "<group>"; };
+		DF49B4321F3CF566005F4283 /* Hills.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Hills.txt; sourceTree = "<group>"; };
+		DF49B4331F3CF566005F4283 /* Map_Desert.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Map_Desert.txt; sourceTree = "<group>"; };
+		DF49B4341F3CF566005F4283 /* Map_Desert_2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Map_Desert_2.txt; sourceTree = "<group>"; };
+		DF49B4351F3CF566005F4283 /* Map_Etang.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Map_Etang.txt; sourceTree = "<group>"; };
+		DF49B4361F3CF566005F4283 /* Map_Etang_2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Map_Etang_2.txt; sourceTree = "<group>"; };
+		DF49B4371F3CF566005F4283 /* Map_Foret.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Map_Foret.txt; sourceTree = "<group>"; };
+		DF49B4381F3CF566005F4283 /* Map_Foret_2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Map_Foret_2.txt; sourceTree = "<group>"; };
+		DF49B43B1F3CF566005F4283 /* Mountain.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mountain.txt; sourceTree = "<group>"; };
 		DF6DA58F1F1E63FC00D3A1A5 /* InfectYourCanard */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = InfectYourCanard; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF821F401F2BD5BE00EF3227 /* Wheat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wheat.h; sourceTree = "<group>"; };
 		DF821F411F2BD69C00EF3227 /* Vitamin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vitamin.h; sourceTree = "<group>"; };
@@ -88,9 +182,82 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF49B4161F3CF566005F4283 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				DF49B4171F3CF566005F4283 /* audio */,
+				DF49B4201F3CF566005F4283 /* font */,
+				DF49B4221F3CF566005F4283 /* image */,
+				DF49B4311F3CF566005F4283 /* map */,
+			);
+			name = resources;
+			path = InfectYourCanard/resources;
+			sourceTree = "<group>";
+		};
+		DF49B4171F3CF566005F4283 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				DF1DB56A1F3E46A900A57A9A /* Vulcano.mid */,
+				DF49B4181F3CF566005F4283 /* duckSound.wav */,
+				DF49B4191F3CF566005F4283 /* Hills.mid */,
+				DF49B41A1F3CF566005F4283 /* Mountain.mid */,
+				DF49B41B1F3CF566005F4283 /* MusicInGame_Desert.mid */,
+				DF49B41C1F3CF566005F4283 /* MusicInGame_Forest.mid */,
+				DF49B41D1F3CF566005F4283 /* MusicInGame_Swamp.mid */,
+				DF49B41F1F3CF566005F4283 /* MusicMainTitle.mid */,
+			);
+			path = audio;
+			sourceTree = "<group>";
+		};
+		DF49B4201F3CF566005F4283 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				DF49B4211F3CF566005F4283 /* FontCanard.TTF */,
+			);
+			path = font;
+			sourceTree = "<group>";
+		};
+		DF49B4221F3CF566005F4283 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				DF49B4231F3CF566005F4283 /* Cake.png */,
+				DF49B4241F3CF566005F4283 /* Canard.png */,
+				DF49B4251F3CF566005F4283 /* Cheese.png */,
+				DF49B4261F3CF566005F4283 /* Contamine.png */,
+				DF49B4271F3CF566005F4283 /* Cursor.png */,
+				DF49B4281F3CF566005F4283 /* Dead.png */,
+				DF49B4291F3CF566005F4283 /* Despite.png */,
+				DF49B42A1F3CF566005F4283 /* Hamburger.png */,
+				DF49B42B1F3CF566005F4283 /* Mort.png */,
+				DF49B42C1F3CF566005F4283 /* MouseVitamin.png */,
+				DF49B42D1F3CF566005F4283 /* MouseWheat.png */,
+				DF49B42E1F3CF566005F4283 /* Soda.png */,
+				DF49B42F1F3CF566005F4283 /* Stressed.png */,
+				DF49B4301F3CF566005F4283 /* Tileset.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		DF49B4311F3CF566005F4283 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				DF1DB5681F3E469500A57A9A /* Vulcano.txt */,
+				DF49B4321F3CF566005F4283 /* Hills.txt */,
+				DF49B4331F3CF566005F4283 /* Map_Desert.txt */,
+				DF49B4341F3CF566005F4283 /* Map_Desert_2.txt */,
+				DF49B4351F3CF566005F4283 /* Map_Etang.txt */,
+				DF49B4361F3CF566005F4283 /* Map_Etang_2.txt */,
+				DF49B4371F3CF566005F4283 /* Map_Foret.txt */,
+				DF49B4381F3CF566005F4283 /* Map_Foret_2.txt */,
+				DF49B43B1F3CF566005F4283 /* Mountain.txt */,
+			);
+			path = map;
+			sourceTree = "<group>";
+		};
 		DF6DA5861F1E63FC00D3A1A5 = {
 			isa = PBXGroup;
 			children = (
+				DF49B4161F3CF566005F4283 /* resources */,
 				DFABBC021F3C54CF00CA452A /* README.md */,
 				DF6DA5911F1E63FC00D3A1A5 /* InfectYourCanard */,
 				DF6DA5901F1E63FC00D3A1A5 /* Products */,
@@ -109,7 +276,6 @@
 		DF6DA5911F1E63FC00D3A1A5 /* InfectYourCanard */ = {
 			isa = PBXGroup;
 			children = (
-				DF49B3FD1F3CE7A1005F4283 /* resources */,
 				DFABBBD81F3C4C0300CA452A /* src */,
 			);
 			path = InfectYourCanard;
@@ -225,6 +391,9 @@
 				DF6DA58B1F1E63FC00D3A1A5 /* Sources */,
 				DF6DA58C1F1E63FC00D3A1A5 /* Frameworks */,
 				DF6DA58D1F1E63FC00D3A1A5 /* CopyFiles */,
+				DF49B4151F3CF511005F4283 /* Copy Files */,
+				DF49B4551F3CF5F3005F4283 /* CopyFiles */,
+				DF49B4581F3CF609005F4283 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -277,7 +446,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF49B3FE1F3CE7A5005F4283 /* resources in Sources */,
 				DF4B0C431F2FA3E600FB1A94 /* LTexture.cpp in Sources */,
 				DFABBBD11F38E4EF00CA452A /* Graph.cpp in Sources */,
 				DF4B0C441F2FA3E600FB1A94 /* LTimer.cpp in Sources */,

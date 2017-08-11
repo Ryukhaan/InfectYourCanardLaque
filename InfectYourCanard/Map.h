@@ -34,7 +34,7 @@ public:
     void render(SDL_Renderer* gRenderer);
     void generativeMapField();
     void generativeMapSnow();
-    
+    void generativeMapLava();
     // Getters
     int getTimer();
     std::vector<int> getVerticesIndices();

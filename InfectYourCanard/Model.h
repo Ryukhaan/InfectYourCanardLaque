@@ -37,10 +37,11 @@ private:
     
 public:
     Model(SDL_Renderer* render) {
-        DeadTexture = new LTexture("resources/image/Dead.png", render);
-        FattyTexture = new LTexture("resources/image/Contamine.png", render);
-        HealthyTexture = new LTexture("resources/image/Canard.png", render);
-        StressedTexture = new LTexture("resources/image/Stressed.png", render);
+        DeadTexture = new LTexture("./resources/image/Dead.png", render);
+        FattyTexture = new LTexture("./resources/image/Contamine.png", render);
+        HealthyTexture = new LTexture("./resources/image/Canard.png", render);
+        StressedTexture = new LTexture("./resources/image/Stressed.png", render);
+        _score = 0;
     }
     
     
@@ -135,7 +136,9 @@ public:
     }
         
     void generativeMap(int i) {
-        i == 0 ? _map->generativeMapField() : _map->generativeMapSnow();
+        if (i == 0) _map->generativeMapField();
+        if (i == 1) _map->generativeMapSnow();
+        if (i == 2) _map->generativeMapLava();
     }
     
     void setTimer(float timer) {
