@@ -10,20 +10,15 @@
 #define Model_h
 
 #include <vector>
-#include "Food.h"
-#include "Wheat.h"
-#include "Vitamin.h"
 #include "DGrid.hpp"
 #include "Map.h"
-#include "Common.h"
-#include "LMouse.hpp"
 //#include <SDL2/SDL.h>
 //#include <SDL2_image/SDL_image.h>
 
 class Model {
 private:
     std::vector<Canard *> _ducks;
-    DGrid _duck;
+    //DGrid _duck;
     int _numberOfDucks;
     Map* _map;
     std::vector<int> _foods;
@@ -97,11 +92,7 @@ public:
     void setNumberOfDucks(int num) {
         _numberOfDucks = num;
     }
-    
-    void pushDuck(Canard *canard) {
-        _ducks.push_back(canard);
-    }
-    
+        
     void increaseFood(int index) {
         if (index < _foods.size())
             _foods[index] ++;

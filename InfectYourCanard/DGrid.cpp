@@ -7,7 +7,6 @@
 //
 
 #include "DGrid.hpp"
-#include "Canard.h"
 
 void DGrid::addDuck(Canard* canard) {
     // Determine which grid cell it's in.
@@ -112,10 +111,10 @@ void DGrid::handleCell(int x, int y) {
 void DGrid::handleDucks(Canard* target, Canard* other) {
     while (other != nullptr) {
         if (distance(target, other) < DISTANCE_FOR_INFECT) {
-            if (other->getState() == FATTY) {
-                target->setState(FATTY);
+            if (other->getState()->getID() == 2) {
+                target->fatty();
                 //target->setTexture(Model::FattyTexture);
-                target->setRatio(other->getRatio());
+                //target->setRatio(other->getRatio());
             }
         }
         other = other->getNext();

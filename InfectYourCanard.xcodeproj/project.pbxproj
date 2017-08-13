@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		DF1DB5691F3E469500A57A9A /* Vulcano.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = DF1DB5681F3E469500A57A9A /* Vulcano.txt */; };
 		DF1DB56B1F3E46A900A57A9A /* Vulcano.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF1DB56A1F3E46A900A57A9A /* Vulcano.mid */; };
+		DF1DB56E1F3EEF4600A57A9A /* FoodStuff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF1DB56D1F3EEF4600A57A9A /* FoodStuff.cpp */; };
+		DF1DB5711F3F059400A57A9A /* Vitamin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF1DB56F1F3F059400A57A9A /* Vitamin.cpp */; };
+		DF1DB5741F3F05D100A57A9A /* Wheat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF1DB5721F3F05D100A57A9A /* Wheat.cpp */; };
+		DF1DB5771F3F5A6D00A57A9A /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF1DB5751F3F5A6C00A57A9A /* State.cpp */; };
+		DF1DB57A1F3F7D9F00A57A9A /* DeadState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF1DB5781F3F7D9E00A57A9A /* DeadState.cpp */; };
+		DF1DB57D1F3F7E1E00A57A9A /* HealthyState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF1DB57B1F3F7E1E00A57A9A /* HealthyState.cpp */; };
+		DF1DB5801F3F7EE500A57A9A /* StressedState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF1DB57E1F3F7EE500A57A9A /* StressedState.cpp */; };
+		DF28C5BB1F3F80E6001191AB /* FattyState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF28C5B91F3F80E6001191AB /* FattyState.cpp */; };
 		DF49B3FC1F3CBCE4005F4283 /* LMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF49B3FA1F3CBCE4005F4283 /* LMouse.cpp */; };
 		DF49B43C1F3CF5DD005F4283 /* duckSound.wav in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B4181F3CF566005F4283 /* duckSound.wav */; };
 		DF49B43D1F3CF5DD005F4283 /* Hills.mid in Copy Files */ = {isa = PBXBuildFile; fileRef = DF49B4191F3CF566005F4283 /* Hills.mid */; };
@@ -103,6 +111,22 @@
 /* Begin PBXFileReference section */
 		DF1DB5681F3E469500A57A9A /* Vulcano.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Vulcano.txt; sourceTree = "<group>"; };
 		DF1DB56A1F3E46A900A57A9A /* Vulcano.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Vulcano.mid; sourceTree = "<group>"; };
+		DF1DB56C1F3EE7D100A57A9A /* FoodStuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoodStuff.h; sourceTree = "<group>"; };
+		DF1DB56D1F3EEF4600A57A9A /* FoodStuff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FoodStuff.cpp; sourceTree = "<group>"; };
+		DF1DB56F1F3F059400A57A9A /* Vitamin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vitamin.cpp; sourceTree = "<group>"; };
+		DF1DB5701F3F059400A57A9A /* Vitamin.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vitamin.hpp; sourceTree = "<group>"; };
+		DF1DB5721F3F05D100A57A9A /* Wheat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Wheat.cpp; sourceTree = "<group>"; };
+		DF1DB5731F3F05D100A57A9A /* Wheat.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Wheat.hpp; sourceTree = "<group>"; };
+		DF1DB5751F3F5A6C00A57A9A /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
+		DF1DB5761F3F5A6D00A57A9A /* State.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = State.hpp; sourceTree = "<group>"; };
+		DF1DB5781F3F7D9E00A57A9A /* DeadState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeadState.cpp; sourceTree = "<group>"; };
+		DF1DB5791F3F7D9E00A57A9A /* DeadState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DeadState.hpp; sourceTree = "<group>"; };
+		DF1DB57B1F3F7E1E00A57A9A /* HealthyState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HealthyState.cpp; sourceTree = "<group>"; };
+		DF1DB57C1F3F7E1E00A57A9A /* HealthyState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HealthyState.hpp; sourceTree = "<group>"; };
+		DF1DB57E1F3F7EE500A57A9A /* StressedState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StressedState.cpp; sourceTree = "<group>"; };
+		DF1DB57F1F3F7EE500A57A9A /* StressedState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = StressedState.hpp; sourceTree = "<group>"; };
+		DF28C5B91F3F80E6001191AB /* FattyState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FattyState.cpp; sourceTree = "<group>"; };
+		DF28C5BA1F3F80E6001191AB /* FattyState.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FattyState.hpp; sourceTree = "<group>"; };
 		DF49B3FA1F3CBCE4005F4283 /* LMouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LMouse.cpp; sourceTree = "<group>"; };
 		DF49B3FB1F3CBCE4005F4283 /* LMouse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LMouse.hpp; sourceTree = "<group>"; };
 		DF49B4181F3CF566005F4283 /* duckSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = duckSound.wav; sourceTree = "<group>"; };
@@ -136,11 +160,8 @@
 		DF49B4381F3CF566005F4283 /* Map_Foret_2.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Map_Foret_2.txt; sourceTree = "<group>"; };
 		DF49B43B1F3CF566005F4283 /* Mountain.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mountain.txt; sourceTree = "<group>"; };
 		DF6DA58F1F1E63FC00D3A1A5 /* InfectYourCanard */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = InfectYourCanard; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF821F401F2BD5BE00EF3227 /* Wheat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Wheat.h; sourceTree = "<group>"; };
-		DF821F411F2BD69C00EF3227 /* Vitamin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vitamin.h; sourceTree = "<group>"; };
 		DF8FC09D1F24F786004EA181 /* LTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LTexture.cpp; sourceTree = "<group>"; };
 		DF8FC09E1F24F786004EA181 /* LTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTexture.h; sourceTree = "<group>"; };
-		DFABBBCE1F38C66900CA452A /* CanardModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanardModel.h; sourceTree = "<group>"; };
 		DFABBBCF1F38E4EF00CA452A /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
 		DFABBBD01F38E4EF00CA452A /* Graph.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Graph.hpp; sourceTree = "<group>"; };
 		DFABBC021F3C54CF00CA452A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -159,7 +180,6 @@
 		DFDC9EEF1F1FCEC1003FCFF8 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		DFDC9EF01F1FCEC1003FCFF8 /* FileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileManager.cpp; sourceTree = "<group>"; };
 		DFDC9EF11F1FCEC1003FCFF8 /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
-		DFDC9EF21F1FCEC1003FCFF8 /* Food.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Food.h; sourceTree = "<group>"; };
 		DFDC9EF31F1FCEC1003FCFF8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DFDC9EF41F1FCEC1003FCFF8 /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
 		DFDC9EF51F1FCEC1003FCFF8 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
@@ -313,9 +333,18 @@
 			children = (
 				DFDC9EEB1F1FCEC1003FCFF8 /* Canard.cpp */,
 				DFDC9EEC1F1FCEC1003FCFF8 /* Canard.h */,
-				DFABBBCE1F38C66900CA452A /* CanardModel.h */,
 				DFABBC031F3C5B5800CA452A /* DGrid.cpp */,
 				DFABBC041F3C5B5800CA452A /* DGrid.hpp */,
+				DF1DB5751F3F5A6C00A57A9A /* State.cpp */,
+				DF1DB5761F3F5A6D00A57A9A /* State.hpp */,
+				DF1DB57B1F3F7E1E00A57A9A /* HealthyState.cpp */,
+				DF1DB57C1F3F7E1E00A57A9A /* HealthyState.hpp */,
+				DF1DB57E1F3F7EE500A57A9A /* StressedState.cpp */,
+				DF1DB57F1F3F7EE500A57A9A /* StressedState.hpp */,
+				DF1DB5781F3F7D9E00A57A9A /* DeadState.cpp */,
+				DF1DB5791F3F7D9E00A57A9A /* DeadState.hpp */,
+				DF28C5B91F3F80E6001191AB /* FattyState.cpp */,
+				DF28C5BA1F3F80E6001191AB /* FattyState.hpp */,
 			);
 			name = duck;
 			sourceTree = "<group>";
@@ -323,9 +352,12 @@
 		DF8FC09B1F24EFC9004EA181 /* food */ = {
 			isa = PBXGroup;
 			children = (
-				DFDC9EF21F1FCEC1003FCFF8 /* Food.h */,
-				DF821F401F2BD5BE00EF3227 /* Wheat.h */,
-				DF821F411F2BD69C00EF3227 /* Vitamin.h */,
+				DF1DB56D1F3EEF4600A57A9A /* FoodStuff.cpp */,
+				DF1DB56C1F3EE7D100A57A9A /* FoodStuff.h */,
+				DF1DB5721F3F05D100A57A9A /* Wheat.cpp */,
+				DF1DB5731F3F05D100A57A9A /* Wheat.hpp */,
+				DF1DB56F1F3F059400A57A9A /* Vitamin.cpp */,
+				DF1DB5701F3F059400A57A9A /* Vitamin.hpp */,
 			);
 			name = food;
 			sourceTree = "<group>";
@@ -448,13 +480,21 @@
 			files = (
 				DF4B0C431F2FA3E600FB1A94 /* LTexture.cpp in Sources */,
 				DFABBBD11F38E4EF00CA452A /* Graph.cpp in Sources */,
+				DF1DB5771F3F5A6D00A57A9A /* State.cpp in Sources */,
 				DF4B0C441F2FA3E600FB1A94 /* LTimer.cpp in Sources */,
+				DF1DB5801F3F7EE500A57A9A /* StressedState.cpp in Sources */,
 				DF4B0C451F2FA3E600FB1A94 /* LTile.cpp in Sources */,
 				DF4B0C461F2FA3E600FB1A94 /* Map.cpp in Sources */,
+				DF1DB5741F3F05D100A57A9A /* Wheat.cpp in Sources */,
+				DF1DB57D1F3F7E1E00A57A9A /* HealthyState.cpp in Sources */,
 				DF4B0C481F2FA3E600FB1A94 /* Canard.cpp in Sources */,
+				DF1DB56E1F3EEF4600A57A9A /* FoodStuff.cpp in Sources */,
+				DF1DB5711F3F059400A57A9A /* Vitamin.cpp in Sources */,
 				DF4B0C4D1F2FA3E600FB1A94 /* Model.cpp in Sources */,
 				DF49B3FC1F3CBCE4005F4283 /* LMouse.cpp in Sources */,
 				DF4B0C4E1F2FA3E600FB1A94 /* FileManager.cpp in Sources */,
+				DF1DB57A1F3F7D9F00A57A9A /* DeadState.cpp in Sources */,
+				DF28C5BB1F3F80E6001191AB /* FattyState.cpp in Sources */,
 				DFABBC051F3C5B5800CA452A /* DGrid.cpp in Sources */,
 				DF4B0C4F1F2FA3E600FB1A94 /* main.cpp in Sources */,
 			);
@@ -555,22 +595,32 @@
 		DF6DA5971F1E63FC00D3A1A5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				OTHER_LDFLAGS = "-v";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Debug;
 		};
 		DF6DA5981F1E63FC00D3A1A5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				LINK_WITH_STANDARD_LIBRARIES = YES;
+				OTHER_LDFLAGS = "-v";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};

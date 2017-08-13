@@ -12,7 +12,8 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
-#include "LTexture.h"
+#include "FoodStuff.h"
+#include "Common.h"
 
 typedef enum {
    WHEAT, VITAMIN
@@ -20,15 +21,13 @@ typedef enum {
 
 class LMouse {
 public:
-    static const int DEFAULT_RADIUS = 48;
-    
     LMouse()
-    : _radius(0)
-    , _status(VITAMIN)
-    {
-        _buttonDown = false;
-        _cursor = nullptr;
-    };
+    : _radius(DEFAULT_RADIUS)
+    , _foodstuff(nullptr)
+    , _buttonDown(false)
+    ,_cursor(nullptr)
+    {};
+    
     ~LMouse();
     
     void setPosition(int x, int y) {
@@ -58,9 +57,11 @@ public:
     bool const isPressed()  {
         return _buttonDown;
     }
-    Status getStatus() {
-        return _status;
+    
+    FoodStuff* getFeed() const {
+        return _foodstuff;
     }
+    
     // Setters
     void setX(const int x) {
         _x = x;
@@ -71,28 +72,28 @@ public:
     void setRadius(const float radius) {
         _radius = radius;
     }
-    void setCursor(SDL_Surface* surface) {
-        _cursor = SDL_CreateColorCursor(surface, 0, 0);
-        SDL_SetCursor(_cursor);
-    }
+    
+    void setCursor();
+
     void switchOnButton() {
         _buttonDown = true;
     }
     void switchOffButton() {
         _buttonDown = false;
     }
-    void switchStatus() {
-        switch (_status) {
-            case VITAMIN: _status = WHEAT; break;
-            case WHEAT: _status = VITAMIN; break;
-            default: break;
-        }
+    
+    void setFoodStuff(FoodStuff* foodstuff) {
+        _foodstuff = foodstuff;
+        setCursor();
     }
+    void wheat();
+    void vitamin();
+    
 private:
     int _x, _y;
     float _radius;
     SDL_Cursor* _cursor;
     bool _buttonDown;
-    Status _status;
+    FoodStuff* _foodstuff;
 };
 #endif /* LMouse_hpp */

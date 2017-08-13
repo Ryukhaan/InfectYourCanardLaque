@@ -36,9 +36,12 @@ public:
     void generativeMapSnow();
     void generativeMapLava();
     // Getters
-    int getTimer();
-    std::vector<int> getVerticesIndices();
-    
+    int getTimer() {
+        return _timer;
+    }
+    Graph getGraph() {
+        return _graph;
+    }
     // Setters
     void setTexture(const std::string path, SDL_Renderer *renderer);
     void setTimer(int timer);
@@ -56,6 +59,6 @@ public:
     }
     
     void initialiseGraph();
-    std::vector<Vertice*> groundGraph(const Graph g, Vertice* start);
+    std::vector<int> groundGraph(const Graph g, int start);
 };
 #endif /* Map_hpp */

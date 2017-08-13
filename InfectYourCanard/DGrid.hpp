@@ -11,7 +11,6 @@
 
 #include <stdio.h>
 #include "Canard.h"
-#include "Common.h"
 
 class DGrid {
     friend class Model;

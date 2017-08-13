@@ -39,12 +39,11 @@ bool LTexture::loadFromFile(const std::string &path, SDL_Renderer* gRenderer )
     if( loadedImage != nullptr )
     {
         if (_texture != nullptr)
-            delete _texture;
+             _texture = nullptr;
         _texture = SDL_CreateTextureFromSurface(gRenderer, loadedImage);
         SDL_FreeSurface(loadedImage);
         if ( _texture == nullptr)
-            //logSDLError(std::cout, "CreateTextureFromSurface");
-            std::cout << "CreateTextureFromSurface failure" << std::endl;
+                std::cout << "CreateTextureFromSurface failure" << std::endl;
     }
     else
     {

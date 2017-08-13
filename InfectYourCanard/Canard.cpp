@@ -26,16 +26,10 @@ Canard::~Canard() {
 
 void Canard::initialise() {
     //Initialize the variables
-    _weight = rand() % 10 + 45.0;
-    _ratio_weight = 1.001;
-    _maximum_weight = rand() % 700 + 2800;
-    _minimum_weight = rand() % 10 + 25;
-    setOrientation(rand()%4);
     _speed = NORMAL_SPEED;
-    _stress = 20;
     
     // State
-    _state = HEALTHY;
+    _state = new HealthyState();
     
     // Collision box
     _collider.x = rand() % ((AREA_WIDTH-1) * TILE_WIDTH);
@@ -48,31 +42,7 @@ void Canard::initialise() {
 }
 
 void Canard::randomWalk(bool locked) {
-    int changeDirection = rand() % 100;
-    int direction = rand() % 4;
-    switch (_state) {
-        case HEALTHY:
-            if (changeDirection > 94)
-                setOrientation(direction);
-            break;
-        case FATTY:
-            if (not locked and changeDirection > 94)
-                setOrientation(direction);
-            break;
-        case STRESSED:
-            if (locked) {
-                switch (_orientation) {
-                    case UP:    _orientation = DOWN;    break;
-                    case DOWN:  _orientation = UP;      break;
-                    case LEFT:  _orientation = RIGHT;   break;
-                    case RIGHT: _orientation = LEFT;    break;
-                    default: break;
-                }
-            }
-            break;
-        default:
-            break;
-    }
+    _state->randomWalk(locked);
 }
 
 void Canard::initialisePosition(const std::vector<SDL_Rect> obstacles) {
@@ -100,34 +70,17 @@ float Canard::distanceBetween(Canard const &canard) {
     return sqrtf(x_diff * x_diff + y_diff * y_diff);
 }
 
-bool Canard::gulpDown(const Food &food) {
-    _weight *= food.getPercentRatioWeight();
-    _weight += food.getFlatRatioWeight();
-    _maximum_weight = food.getMaximumWeight();
-    _minimum_weight = food.getMinimumWeight();
-    _ratio_weight = food.getRatioOverTime();
-    _state = FATTY;
+bool Canard::gulpDown(FoodStuff* feed) {
+    _state->gulp(feed);
     return true;
 }
 
 void Canard::putOnWeight() {
-    switch (_state) {
-        case HEALTHY:
-            _weight += _ratio_weight;
-            break;
-        case FATTY:
-            _weight *= _ratio_weight;
-            break;
-        case  STRESSED:
-            // Stress decrease equation
-            _weight /= (_ratio_weight * 1.04);
-        default:
-            break;
-    }
+    _state->increaseWeight();
 }
 
 void Canard::stepForward(Uint32 timestep) {
-    switch (_orientation) {
+    switch (_state->getOrientation()) {
         case DOWN   : _collider.y += _speed ; break;
         case UP     : _collider.y -= _speed ; break;
         case LEFT   : _collider.x -= _speed ; break;
@@ -145,15 +98,16 @@ void Canard::stepForward(Uint32 timestep) {
 
 void Canard::render(SDL_Renderer* renderer, Uint8 turn) {
     SDL_Rect source;
-    if (_state != DEAD)
-        source = {turn * TILE_HEIGHT, _orientation * TILE_WIDTH, TILE_WIDTH , TILE_HEIGHT};
+    if (_state->getID() != -1)
+        source = {turn * TILE_HEIGHT, _state->getOrientation() * TILE_WIDTH, TILE_WIDTH , TILE_HEIGHT};
     else
         source = {0, 0, TILE_WIDTH, TILE_HEIGHT};
     _texture->render(renderer, &source, _collider.x, _collider.y);
 }
 
 void Canard::update(Uint32 timestep, const std::vector<SDL_Rect> obstacles, bool locked) {
-    if (_state != DEAD) {
+    if (_state->getID() != -1) // not DEAD
+    {
         randomWalk(locked);
         stepForward(timestep);
         SDL_Rect back = checkMovable(obstacles);
@@ -161,12 +115,9 @@ void Canard::update(Uint32 timestep, const std::vector<SDL_Rect> obstacles, bool
             _collider = back;
             //randomWalk(locked);
             int newOrientation = (rand() % 4);
-            while (newOrientation == _orientation)
+            while (newOrientation == _state->getOrientation())
                 newOrientation = rand() % 4;
-            setOrientation(newOrientation);
-        }
-        if (_state == STRESSED) {
-            _stress -= rand() % 2 + 2;
+            _state->setOrientation(newOrientation);
         }
         putOnWeight();
     }
@@ -193,7 +144,7 @@ SDL_Rect Canard::checkMovable(const std::vector<SDL_Rect> obstacles) {
     stepBackward.x = _collider.x;
     stepBackward.y = _collider.y;
     _movable = true;
-    switch (_orientation) {
+    switch (_state->getOrientation()) {
         case DOWN:
             if (not (_collider.y < (AREA_HEIGHT-1)*TILE_HEIGHT)) {
                 _movable = false;
@@ -227,7 +178,7 @@ SDL_Rect Canard::checkMovable(const std::vector<SDL_Rect> obstacles) {
     }
     for (SDL_Rect obstacle : obstacles) {
         if (checkCollision(obstacle)) {
-            switch (_orientation) {
+            switch (_state->getOrientation()) {
                 case DOWN:  stepBackward.y -= _speed; break;
                 case UP:    stepBackward.y += _speed; break;
                 case LEFT:  stepBackward.x += _speed; break;
@@ -268,18 +219,44 @@ bool Canard::checkCollision(SDL_Rect obstacle) {
 }
 
 // Setters
-void Canard::setOrientation(int orientation) {
-    switch (orientation) {
-        case 0: setOrientation(DOWN);     break;
-        case 1: setOrientation(LEFT);     break;
-        case 2: setOrientation(RIGHT);    break;
-        case 3: setOrientation(UP);       break;
-        default: break;
+void Canard::fatty() {
+    if (_state != NULL) {
+        State* fatty = _state->beFatty();
+        if (fatty != NULL) {
+            //delete _state;
+            _state = nullptr;
+            _state = fatty;
+        }
     }
 }
 
-/*
-void Canard::setTexture(const std::string path, SDL_Renderer *renderer) {
-    _texture->loadFromFile(path, renderer);
-}*/
-
+void Canard::healthy() {
+    if (_state != NULL) {
+        State* healthy = _state->beHealthy();
+        if (healthy != NULL) {
+            //delete _state;
+            _state = nullptr;
+            _state = healthy;
+        }
+    }
+}
+void Canard::stressed() {
+    if (_state != NULL) {
+        State* stressed = _state->beStressed();
+        if (stressed != NULL) {
+            //delete _state;
+            _state = nullptr;
+            _state = stressed;
+        }
+    }
+}
+void Canard::dead() {
+    if (_state != NULL) {
+        State* dead = _state->beDead();
+        if (dead != NULL) {
+            //delete _state;
+            _state = nullptr;
+            _state = dead;
+        }
+    }
+}

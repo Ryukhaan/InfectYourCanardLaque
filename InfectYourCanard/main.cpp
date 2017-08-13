@@ -13,11 +13,7 @@
 //#include <omp.h>
 #include "FileManager.h"
 #include "LTimer.h"
-#include "Canard.h"
-#include "Food.h"
-#include "Vitamin.h"
-#include "Wheat.h"
-#include "LMouse.hpp"
+#include "Vitamin.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_ttf/SDL_ttf.h>
@@ -53,10 +49,10 @@ int main(int argc, const char * argv[]) {
     SDL_UpdateWindowSurface( window );
     
     //SDL_Surface* tileset= IMG_Load("resources/image/Tileset.png");
-    srand (time(NULL));
+    std::srand((unsigned int)std::time(0));
     
-    //int zone = rand()%3;
-    int zone = 2;
+    int zone = rand()%3;
+    //int zone = 2;
     // Initialise all pointers
     Mix_Music *music = nullptr;
     FileManager *fileManager = nullptr;
@@ -73,6 +69,7 @@ int main(int argc, const char * argv[]) {
     model = new Model(render);
     fileManager->readMap(model);
     delete fileManager;
+    fileManager = nullptr;
     model->generativeMap(zone);
     model->makeMap("./resources/image/Tileset.png", render);
     // Initialise Obstacles for the model (all sprite that can't be passed)
@@ -82,10 +79,7 @@ int main(int argc, const char * argv[]) {
     
     // Mouse Creation
     mouse = new LMouse();
-    mouse->setRadius(TILE_WIDTH);
-    SDL_Surface* mouseSurfaceVitamin = IMG_Load("./resources/image/MouseVitamin.png");
-    SDL_Surface* mouseSurfaceWheat = IMG_Load("./resources/image/MouseWheat.png");
-    mouse->setCursor(mouseSurfaceVitamin);
+    mouse->setFoodStuff(new Vitamin());
     while (SDL_ShowCursor(SDL_ENABLE) != SDL_ENABLE) {};
     SDL_SetCursor(NULL);
     int turn = 0;
@@ -120,24 +114,18 @@ int main(int argc, const char * argv[]) {
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     mouse->setPosition(event->motion.x,event->motion.y);
-                    if (model->moreThanOneFood(mouse->getStatus())) {
-                        std::cout << model->foodAt(mouse->getStatus()) << std::endl;
+                    if (model->moreThanOneFood(mouse->getFeed()->getID()))
                         Mix_PlayChannel(1, sound, 0);
-                    }
                     else
                         mouse->switchOnButton();
                     break;
-                case SDL_MOUSEWHEEL:
-                    mouse->switchStatus();
-                    switch (mouse->getStatus()) {
-                        case VITAMIN:
-                            mouse->setCursor(mouseSurfaceVitamin);
-                            mouse->setRadius(64.00f);
+                case SDL_KEYDOWN:
+                    switch (event->key.keysym.sym) {
+                        case SDLK_a:
+                            mouse->vitamin();
                             break;
-                        case WHEAT:
-                            mouse->setCursor(mouseSurfaceWheat);
-                            mouse->setRadius(48.00f);
-                            break;
+                        case SDLK_z:
+                            mouse->wheat();
                         default:
                             break;
                     }
@@ -170,8 +158,8 @@ int main(int argc, const char * argv[]) {
     }
     SDL_Delay(1000);
     for (Canard* canard : model->getCanards()) {
-        if (canard->getState() == DEAD) {
-           model->addScore(canard->getWeight());
+        if (canard->getState()->getID() == -1) {
+           model->addScore(canard->getState()->getWeight());
         }
         model->eraseDuck(canard);
     }

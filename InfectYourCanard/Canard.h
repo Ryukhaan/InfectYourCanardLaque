@@ -15,29 +15,30 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
-#include "Common.h"
-#include "Food.h"
+#include "LMouse.hpp"
 #include "LTexture.h"
+#include "LTile.h"
+#include "State.hpp"
+#include "HealthyState.hpp"
+#include "FattyState.hpp"
+#include "DeadState.hpp"
+#include "StressedState.hpp"
 
+/*
 typedef enum {
     FATTY, HEALTHY, STRESSED, DEAD
 } State;
+*/
 
 class Canard {
     friend class DGrid;
     //class Status* _status;
     
 private:
-    //bool _initialized;
-    
-    float _weight;
-    float _ratio_weight;
-    float _maximum_weight, _minimum_weight;
     int _speed;
     bool _movable;
-    Orientation _orientation;
-    State _state;
-    int _stress;
+    State* _state;
+
     SDL_Rect _collider;
     LTexture* _texture;
     Canard* _next;
@@ -72,7 +73,7 @@ public:
         return - canard._collider.y + _collider.y + canard._collider.x - _collider.x;
     }
     
-    bool gulpDown(const Food &food);
+    bool gulpDown(FoodStuff* feed);
     void putOnWeight();
     void randomWalk(bool locked);
     void stepForward(Uint32 timestep);
@@ -81,35 +82,18 @@ public:
     bool checkCollision(SDL_Rect obstacle);
     
     // Setters
-    void setWeight(float weight) {
-        _weight = weight;
-    }
-    void setRatio(float ratio) {
-        _ratio_weight = ratio;
-    }
-    void setMaximumWeight(float maximum) {
-        _maximum_weight = maximum;
-    }
-    void setMinimumWeight(float minimum) {
-        _minimum_weight = minimum;
-    }
     void setSpeed(int speed) {
         speed < 0 ? _speed = NORMAL_SPEED : _speed = speed;
     }
     void setMovable(bool movable) {
         _movable = movable;
     }
-    void setOrientation(Orientation orientation) {
-        _orientation = orientation;
-    }
-    void setOrientation(int orientation);
+
     void setTexture(const std::string path, SDL_Renderer *renderer);
-    void setState(State state) {
+    void setState(State* state) {
         _state = state;
     }
-    void setStress(int stress) {
-        _stress = stress;
-    }
+    
     void setTexture(LTexture* texture) {
         _texture = texture;
     }
@@ -125,19 +109,11 @@ public:
     void setPrev(Canard* prev) {
         _prev = prev;
     }
+    void setRatio(float ratio) {
+        _state->setRatio(ratio);
+    }
+    
     // Getters
-    float getWeight() {
-        return _weight;
-    }
-    float getRatio() {
-        return _ratio_weight;
-    }
-    float getMaximum() {
-        return _maximum_weight;
-    }
-    float getMinimum() {
-        return _minimum_weight;
-    }
     int getSpeed() {
         return _speed;
     }
@@ -156,14 +132,8 @@ public:
     LTexture* getTexture() {
         return _texture;
     }
-    State getState() {
+    State* getState() {
         return _state;
-    }
-    int getStress() {
-        return _stress;
-    }
-    Orientation getOrientation() {
-        return _orientation;
     }
     
     Canard* getNext() {
@@ -172,6 +142,14 @@ public:
     Canard* getPrev() {
         return _prev;
     }
+    float getRatio() {
+        return _state->getRatio();
+    }
+    // State actions
+    void fatty();
+    void healthy();
+    void stressed();
+    void dead();
 };
 
 #endif /* Canard_h */

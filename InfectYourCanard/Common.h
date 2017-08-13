@@ -16,7 +16,6 @@
 #include <ostream>
 #include <string>
 #include <vector>
-#include <SDL2/SDL.h>
 
 #define MAP_WIDTH 800
 #define MAP_HEIGHT 608
@@ -44,12 +43,14 @@
 #define DISTANCE_FATTY_VISION 48
 #define DISTANCE_HEALTHY_DETECTION 16
 
+static const int DEFAULT_RADIUS = 48;
+
 const std::vector<int> impassable = {0, 1, 4, 5, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 25, 27};
 
-/*int toIndex(int x, int y) {
-    return x * AREA_HEIGHT + y;
-}*/
 typedef enum {
-    DOWN, LEFT, RIGHT, UP
+    DOWN = 0,
+    LEFT = 1,
+    RIGHT= 2,
+    UP   = 3
 } Orientation ;
 #endif /* Common_h */

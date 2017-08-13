@@ -20,8 +20,8 @@ SDL_Surface* Map::createFromSurface(const std::string path) {
     SDL_Surface *image = IMG_Load( path.c_str() );
     surface = SDL_CreateRGBSurface(0, NUMBER_WIDTH_TILES*TILE_WIDTH, NUMBER_HEIGHT_TILES*TILE_HEIGHT, 32, 0, 0, 0, 0);
     int num_vertice = 0;
-    for (Vertice edge : _graph._edges) {
-        int currentIndice = edge.indice;
+    for (LTile vertice : _graph._vertices) {
+        int currentIndice = (int) vertice._type;
         int i = num_vertice / AREA_HEIGHT;
         int j = num_vertice % AREA_HEIGHT;
         int positionX = (currentIndice % 10) * TILE_WIDTH;
@@ -159,9 +159,32 @@ void Map::generativeMapField() {
         if (x > AREA_WIDTH) y=AREA_WIDTH;
         index = x * AREA_HEIGHT + y;
     }
-    //_graph.setGraphFromTable(table);
+    _graph.setGraphFromTable(table);
     
     // Remove small "islands"
+    std::vector<std::vector<int>> islands;
+    islands.push_back(groundGraph(_graph, 0));
+    
+    for (int index=0; index<AREA_WIDTH*AREA_HEIGHT; index++) {
+        bool visited = false;
+        if ( table[index] == LTile::river) continue;
+        for (std::vector<int> subIsland : islands) {
+            if ( visited )
+                break;
+            for (int num : subIsland) {
+                if ( num == index ) {
+                    visited = true;
+                    break;
+                }
+            }
+        }
+        if ( !visited )
+            islands.push_back(groundGraph(_graph, index));
+    }
+    for (std::vector<int> island : islands)
+        if (island.size() < 120)
+            for (int tile : island)
+                table[tile] = LTile::river;
     // TO DO
     
     // Build bridges
@@ -237,10 +260,31 @@ void Map::generativeMapSnow() {
         if (x > AREA_WIDTH-1) x = AREA_WIDTH-1;
         if (y < 1) y = 1;
     }
-
-    
+    _graph.setGraphFromTable(table);
     // Remove small "islands"
-    // TO DO
+    std::vector<std::vector<int>> islands;
+    islands.push_back(groundGraph(_graph, 0));
+    
+    for (int index=0; index<AREA_WIDTH*AREA_HEIGHT; index++) {
+        bool visited = false;
+        if ( table[index] == LTile::river) continue;
+        for (std::vector<int> subIsland : islands) {
+            if ( visited )
+                break;
+            for (int num : subIsland) {
+                if ( num == index ) {
+                    visited = true;
+                    break;
+                }
+            }
+        }
+        if ( !visited )
+            islands.push_back(groundGraph(_graph, index));
+    }
+    for (std::vector<int> island : islands)
+        if (island.size() < 10)
+            for (int tile : island)
+                table[tile] = LTile::river;
     
     // Build bridges
     // Can be upgrade ?
@@ -295,7 +339,7 @@ void Map::generativeMapLava() {
         table[i] = 7;
     }
     
-    int limit = 1250;
+    int limit = 1000;
     int mass = 0;
     std::vector<int> pile;
     pile.push_back(toward(AREA_WIDTH / 2, AREA_HEIGHT / 2));
@@ -310,7 +354,24 @@ void Map::generativeMapLava() {
             for (int child=0; child<2; child++) {
                 int x = index / AREA_HEIGHT;
                 int y = index % AREA_HEIGHT;
+                if ( x < 1 || x > AREA_WIDTH - 1) break;
+                if ( y < 1 || y > AREA_HEIGHT - 1) break;
+                int neighbor = x * AREA_HEIGHT + y;
+                int num = 0;
                 Orientation children = randomDirection(rand()%4);
+                do {
+                    children = randomDirection(rand()%4);
+                    switch (children) {
+                        case LEFT:  neighbor=toward(x-1,y); break;
+                        case RIGHT: neighbor=toward(x+1,y); break;
+                        case UP:    neighbor=toward(x,y-1); break;
+                        case DOWN:  neighbor=toward(x,y+1); break;
+                        default:
+                            break;
+                    }
+                    num ++;
+                } while(table[neighbor]==6 && num<4);
+                
                 switch (children) {
                     case LEFT:  x--; break;
                     case RIGHT: x++; break;
@@ -327,9 +388,10 @@ void Map::generativeMapLava() {
         pile.push_back(toward(rand()%AREA_WIDTH, rand()%AREA_HEIGHT));
     }
     for (int i=0 ; i< table.size(); i++) {
-        if (table[i] == 6 )
-            if (rand()%10==0)
+        if ( table[i] == 6 ) {
+            if ( rand()%10 == 0 )
                 table[i] = 5;
+        }
     }
     _graph.setGraphFromTable(table);
 }
@@ -346,55 +408,43 @@ void Map::setTile(int x, int y, int value) {
 void Map::setTexture(const std::string path, SDL_Renderer *renderer) {
     _texture.loadFromFile(path, renderer);
 }
+
 // Getters
-
-int Map::getTimer() {
-    return _timer;
-}
-
-std::vector<int> Map::getVerticesIndices() {
-    std::vector<int> indices;
-    for (Vertice v : _graph._edges) {
-        indices.push_back(v.indice);
-    }
-    return indices;
-}
 
 void Map::initialiseGraph() {
     _graph.setGraphFromTable({});
 }
 
-std::vector<Vertice*> Map::groundGraph(const Graph graph, Vertice* start) {
-    //Graph subGraph = *new Graph();
-    std::vector<Vertice*> subGraph;
-    std::vector<Vertice*> pile;
-    std::vector<Vertice*> marks;
-    std::vector<Vertice*> voisins = graph.neighbors(*start);
+std::vector<int> Map::groundGraph(Graph graph, int start) {
+    std::vector<int> subGraph;
+    std::vector<int> pile;
+    std::vector<int> marked;
+    std::vector<int> voisins = graph.neighbors(start);
     
     subGraph.push_back(start);
     pile.push_back(start);
-    marks.push_back(start);
+    marked.push_back(start);
     // Tant que la pile n'est pas vide (toujours des sommets à visiter)
     while (pile.size() != 0) {
         // Récuperer le sommet
-        Vertice* sommet = pile.front();
+        int sommet = pile.front();
         pile.erase(pile.begin());
         // Get neighboors
-        voisins = graph.neighbors(*sommet);
+        voisins = graph.neighbors(sommet);
         // For each neighboor
-        for (Vertice* voisin : voisins) {
-            if (voisin == nullptr) break;
+        for (int voisin : voisins) {
             bool isMarked = false;
             //
-            for (Vertice* mark : marks) {
-                if (voisin==mark) {
+            for (int alreadyVisited : marked) {
+                if ( voisin == alreadyVisited ) {
                     isMarked=true;
                     break;
                 }
             }
-            if (!isMarked && voisin->indice != 4) {
+            
+            if (!isMarked && graph._vertices[voisin]._type != LTile::river) {
                 pile.push_back(voisin);
-                marks.push_back(voisin);
+                marked.push_back(voisin);
                 subGraph.push_back(voisin);
             }
         }
